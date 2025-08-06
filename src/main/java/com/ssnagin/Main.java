@@ -2,6 +2,9 @@ package com.ssnagin;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello, World!");
+
+        WebServer server = new WebServer(args);
+        server.launch();
+
     }
 }
