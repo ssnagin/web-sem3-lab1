@@ -12,7 +12,7 @@ public class WebServer {
 
     public void launch() {
         while (fcgiInterface.FCGIaccept() >= 0) {
-
+            System.out.println("OK");
         }
     }
 }
