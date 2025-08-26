@@ -40,3 +40,12 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+
+##### NODE JS GITIGNORE #####
+
+node_modules
+build
+npm-debug.log
+.env
+.DS_Store
