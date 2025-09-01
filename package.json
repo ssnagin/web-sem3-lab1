@@ -1,0 +1,28 @@
+{
+  "name": "web-sem3-lab1",
+  "version": "1.0.0",
+  "description": "Материалы 1 лабы по вебу",
+  "homepage": "https://github.com/ssnagin/web-sem3-lab1#readme",
+  "bugs": {
+    "url": "https://github.com/ssnagin/web-sem3-lab1/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ssnagin/web-sem3-lab1.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "devDependencies": {
+    "webpack": "^5.101.3",
+    "webpack-cli": "^6.0.1"
+  }
+}
