@@ -1,0 +1,38 @@
+/*!*********************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./public_html/src/sass/grid.css ***!
+  \*********************************************************************************/
+/* Типа сетка bootstrap */
+
+.col-1 {width: 8.33%}
+.col-2 {width: 16.67%}
+.col-3 {width: 25%}
+.col-4 {width: 33.33%}
+.col-5 {width: 41.67%}
+.col-6 {width: 50%}
+.col-7 {width: 58.33%}
+.col-8 {width: 66.67%}
+.col-9 {width: 75%}
+.col-10 {width: 83.33%}
+.col-11 {width: 91.67%}
+.col-12 {width: 100%}
+
+
+/*!**************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./public_html/src/sass/style.sass ***!
+  \**************************************************************************************************************************/
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.sn-website-container {
+  margin: 0;
+}
+
+.sn-website-container header {
+  margin: 0;
+}
+
+.sn-website-container div {
+  margin: 0;
+}
