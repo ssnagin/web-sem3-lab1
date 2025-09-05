@@ -19,16 +19,16 @@ module.exports = {
             },
         ]
     },
-    resolve: {
-        extensions: ['*', '.js']
-    },
+    // resolve: {
+    //     extensions: ['*', '.js']
+    // },
     output: {
         path: path.resolve(__dirname, './public_html/dist/'),
         filename: '[name].bundle.js',
     },
     plugins: [
         new MiniCssExtractPlugin({
-            filename: '[name].css',
+            filename: '[name].bundle.css',
             chunkFilename: '[id].css',
         }),
   ],

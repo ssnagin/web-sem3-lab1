@@ -1,0 +1,62 @@
+import numpy as np
+import math
+
+# Данные
+data = [18,18,19,20,20,21,22,22,23,23,23,24,25,25,26,27,27,27,29,30,32,40,52,54,69]
+
+# Среднее арифметическое
+mean = np.mean(data)
+print(f"Среднее значение: {mean:.2f}")
+
+# Стандартное отклонение генеральной совокупности
+std_population = np.std(data)
+print(f"СКО генеральной совокупности: {std_population:.2f}")
+
+# Стандартное отклонение выборки (несмещенная оценка)
+std_sample = np.std(data, ddof=1)
+print(f"СКО выборки: {std_sample:.2f}")
+
+# Альтернативный расчет вручную для понимания формулы
+def manual_std(data, is_population=True):
+    n = len(data)
+    mean = sum(data) / n
+    variance = sum((x - mean) ** 2 for x in data) / (n if is_population else n - 1)
+    return math.sqrt(variance)
+
+print(f"\nПроверка ручным расчетом:")
+print(f"СКО генеральной совокупности: {manual_std(data, True):.2f}")
+print(f"СКО выборки: {manual_std(data, False):.2f}")
+
+# Дополнительная информация
+print(f"\nДополнительная информация:")
+print(f"Размер выборки: {len(data)}")
+print(f"Минимальное значение: {min(data)}")
+print(f"Максимальное значение: {max(data)}")
+print(f"Медиана: {np.median(data)}")
+
+
+from scipy import stats
+
+# Параметры
+alpha = 0.95
+N = 24  # размер выборки
+df = N - 1  # степени свободы
+
+# Критическое значение t-распределения Стьюдента
+# Для двустороннего теста
+t_critical = stats.t.ppf((1 + alpha) / 2, df)
+
+print(f"Критическое значение t-Стьюдента:")
+print(f"Уровень доверия: {alpha}")
+print(f"Размер выборки: N = {N}")
+print(f"Степени свободы: df = {df}")
+print(f"Критическое значение: t = {t_critical:.4f}")
+
+# Для одностороннего теста
+t_critical_one_sided = stats.t.ppf(alpha, df)
+print(f"\nДля одностороннего теста: t = {t_critical_one_sided:.4f}")
+
+# Дополнительная информация
+print(f"\nДоверительный интервал для среднего при данном t:")
+print(f"Вероятность в хвостах: {(1-alpha)/2:.3f} с каждой стороны")
+print(f"Площадь под кривой между -t и +t: {alpha:.3f}")

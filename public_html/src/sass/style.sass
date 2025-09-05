@@ -1,15 +1,46 @@
+@import fonts
+@import grid
+    
+// При работе с CSS должно быть продемонстрировано использование селекторов потомств, селекторов псевдоклассов, селекторов дочерних элементов, селекторов псевдоэлементов а также такие свойства стилей CSS, как наследование и каскадирование.
+
 *
     padding: 0
     margin: 0
 
-@import "grid.css"
+header
+    background-color: #5c0377
+    color: white
+    text-align: center
+    padding: 10px
 
+    hr
+        color: #c489f5
+        margin: 10px 0 10px 0
 
 .sn-website-container
-    margin: 0
+    margin: inherit
+    display: flex
+    flex-direction: left
+    flex-wrap: nowrap
+    min-width: 1200px
 
-.sn-website-container header
-    margin: 0
+    section
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px
+        padding: 10px
+        
 
-.sn-website-container div
-    margin: 0
+.sn-website-container>*
+    padding: 15px
+    
+
+.headline
+    display: flex
+    justify-content: flex-start
+    font-family: 'sabrina star', fantasy !important
+
+    border-radius: 10px
+    background-color: #770599
+    padding: 5px 10px 5px 10px
+
+    .counter
+        margin-left: 10px !important

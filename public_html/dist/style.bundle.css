@@ -1,0 +1,100 @@
+/*!**************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./public_html/src/sass/style.sass ***!
+  \**************************************************************************************************************************/
+@charset "UTF-8";
+*:not(h1) {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Типа сетка bootstrap */
+.col-1 {
+  width: 8.33%;
+}
+
+.col-2 {
+  width: 16.67%;
+}
+
+.col-3 {
+  width: 25%;
+}
+
+.col-4 {
+  width: 33.33%;
+}
+
+.col-5 {
+  width: 41.67%;
+}
+
+.col-6 {
+  width: 50%;
+}
+
+.col-7 {
+  width: 58.33%;
+}
+
+.col-8 {
+  width: 66.67%;
+}
+
+.col-9 {
+  width: 75%;
+}
+
+.col-10 {
+  width: 83.33%;
+}
+
+.col-11 {
+  width: 91.67%;
+}
+
+.col-12 {
+  width: 100%;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+header {
+  background-color: #5c0377;
+  color: white;
+  text-align: center;
+  padding: 10px;
+}
+header hr {
+  color: #c489f5;
+  margin: 10px 0 10px 0;
+}
+
+.sn-website-container {
+  margin: inherit;
+  display: flex;
+  flex-direction: left;
+  flex-wrap: nowrap;
+  min-width: 1200px;
+}
+.sn-website-container section {
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  padding: 10px;
+}
+
+.sn-website-container > * {
+  padding: 15px;
+}
+
+.headline {
+  display: flex;
+  justify-content: flex-start;
+  font-family: "sabrina star", fantasy !important;
+  border-radius: 10px;
+  background-color: #770599;
+  padding: 5px 10px 5px 10px;
+}
+.headline .counter {
+  margin-left: 10px !important;
+}
