@@ -7,6 +7,7 @@
  * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
  */
 /******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
 /***/ "./public_html/src/js/index.js":
@@ -15,7 +16,7 @@
   \*************************************/
 /***/ (() => {
 
-eval("{\n\n//# sourceURL=webpack://web-sem3-lab1/./public_html/src/js/index.js?\n}");
+eval("{\r\n\r\nvar counterValue = 1;\r\n\r\ndocument.addEventListener(\"DOMContentLoaded\", onDOMContentLoaded);\r\n\r\nfunction onDOMContentLoaded() {\r\n\r\n    const counter = document.getElementById(\"counter\");\r\n    counter.addEventListener(\"click\", (event) => {onCounterUpdate(event)});\r\n\r\n}\r\n\r\nfunction onCounterUpdate(event) {\r\n    counterValue++;\r\n    event.srcElement.innerHTML = counterValue;\r\n}\n\n//# sourceURL=webpack://web-sem3-lab1/./public_html/src/js/index.js?\n}");
 
 /***/ })
 

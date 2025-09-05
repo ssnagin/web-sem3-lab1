@@ -1,5 +1,6 @@
 @import fonts
 @import grid
+@import animations
     
 // При работе с CSS должно быть продемонстрировано использование селекторов потомств, селекторов псевдоклассов, селекторов дочерних элементов, селекторов псевдоэлементов а также такие свойства стилей CSS, как наследование и каскадирование.
 
@@ -7,11 +8,20 @@
     padding: 0
     margin: 0
 
+.image-cover
+    position: absolute
+    bottom: 0
+    left: 0
+    width: 100%
+    height: 1000px
+
 header
     background-color: #5c0377
     color: white
     text-align: center
     padding: 10px
+
+    min-width: 500px
 
     hr
         color: #c489f5
@@ -27,6 +37,16 @@ header
     section
         box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px
         padding: 10px
+
+    section::after
+        position: relative
+        top: 36px
+        left: 0px
+        padding: 5px 10px 3px 10px
+        background-color: rgba(240, 5, 230, 0.3)
+        content: "......"
+        color: rgba(0,0,0,0)
+        border-radius: 0px 0px 10px 10px
         
 
 .sn-website-container>*
@@ -34,13 +54,28 @@ header
     
 
 .headline
-    display: flex
+    display: inline-flex
     justify-content: flex-start
+
     font-family: 'sabrina star', fantasy !important
+    h1
+        font-size: 36pt
+        color: rgba(255, 255, 255, 0.7)
 
     border-radius: 10px
     background-color: #770599
-    padding: 5px 10px 5px 10px
+    padding: 10px 20px 10px 20px
 
-    .counter
+    h1:last-child
         margin-left: 10px !important
+        padding: 0 10px 0 10px
+        border-radius: 10px
+        cursor: pointer
+        scale: 1
+    
+    h1:last-child:hover
+        animation-name: counter-scale
+        animation-duration: 1s
+        animation-iteration-count: infinite
+
+        color: white

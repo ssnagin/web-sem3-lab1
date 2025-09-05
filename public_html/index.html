@@ -12,10 +12,10 @@
 
         <title>Лабораторная работа</title>
     </head>
-    <body>        
+    <body style="background-image: url('assets/img/итмо_bg.png'); background-repeat: repeat-x;">        
         <header>
             <div class="headline">
-                <h1 class="special-fantasy-font-block">Лабораторная работа</h1><h1 class="counter">1</h1>
+                <h1 class="special-fantasy-font-block">Лабораторная работа</h1><h1 id="counter" value="1">1</h1>
             </div>
             
             <hr>
@@ -26,14 +26,13 @@
         <div class="sn-website-container">
             <aside class="col-4">
                 <section>
-                    <form action="" method="post">
+                    <form action="" method="post" class="sn-form">
+
                         
 
                         <input type="button" type="submit" value="Отправить!" />
                         
                         <input type="radio" name="" id="">
-
-                        
 
                         <input type="text" min="-3" max="5" placeholder="Цифорка Y" />
                     </form>
@@ -42,7 +41,15 @@
 
             <main class="col-8">
                 <section>
-                    Test
+                    <details>
+                        <summary>Показать задание</summary>
+                        
+                        <img src="assets/img/img.png" alt="" srcset="" />
+                        
+                        
+
+                        <p>Какой-то текст</p>
+                       </details>
                 </section>
             </main>
         </div>
@@ -55,8 +62,11 @@
             </section>
             <!-- какой-то футер (тут будет таблица с результатами) -->
         </footer>
+        
+        <!-- IMAGE COVER -->
+        <!-- <div class="image-cover" style="background-image: url('assets/img/итмо_bg.png');"></div> -->
 
         <!-- JS BUNDLE --> 
-        <script src="dist/scripts.bundle.js"></script>
+        <script src="dist/script.bundle.js"></script>
     </body>
 </html>
