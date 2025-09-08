@@ -1,6 +1,8 @@
-@import fonts
-@import grid
-@import animations
+@use 'fonts'
+@use 'grid'
+@use 'animations'
+
+@use 'modules/forms'
     
 // При работе с CSS должно быть продемонстрировано использование селекторов потомств, селекторов псевдоклассов, селекторов дочерних элементов, селекторов псевдоэлементов а также такие свойства стилей CSS, как наследование и каскадирование.
 
@@ -8,7 +10,7 @@
     padding: 0
     margin: 0
 
-table
+body>table
     border: none
     border-collapse: collapse
 
@@ -37,10 +39,17 @@ header, .header
     flex-direction: left
     flex-wrap: nowrap
     min-width: 1200px
+    min-height: 800px
 
     section
         box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px
         padding: 10px
+        background-color: rgba(241, 233, 248, 0.3)
+        transition: color, 0.5s ease 0s
+
+    section:hover
+        transition: color, 0.5s ease 0s
+        background-color: rgba(255, 255, 255, 0.7)
 
     section::after
         position: relative
@@ -55,7 +64,6 @@ header, .header
 
 .sn-website-container>*
     padding: 15px
-    min-height: 600px
     
 
 .headline

@@ -12,7 +12,7 @@
 
         <title>Лабораторная работа</title>
     </head>
-    <body style="background-image: url('assets/img/итмо_bg.png'); background-repeat: repeat-x;">        
+    <body style="background-image: url('assets/img/итмо_bg.png'); background-repeat: repeat-x; background-size: 600px;">        
         
         <table 
             border="0" 
@@ -25,101 +25,99 @@
                     </div>
                     <hr>
                     
-                    <p>Снагин Станислав P3215</p>
+                    <p class="pd-10px font-code">Снагин Станислав P3215 | 321582 вар.</p>
                 </td>
             </tr>
             <tr class="sn-website-container">
                 <td class="col-4">
                     <section>
-                        <form action="" method="post" class="sn-form">
+                        <form onsubmit="submit(e)" method="post" class="sn-default-form">
                             
-                            <input type="button" value="what" accesskey="ttt"/>
-
-                            <input type="button" type="submit" value="Отправить!" />
+                            <h2>Отправить точку в полёт</h2>
                             
-                            <input type="radio" name="" id="">
+                            <br>
 
-                            <input type="text" min="-3" max="5" placeholder="Цифорка Y" />
+                            <label for="">Координата X</label>
+                            <table class="pd-10px col-12">
+                                <tr>
+                                    <td><input type="button" data-value="-4" value="-4"></td>
+                                    <td><input type="button" data-value="-3" value="-3"></td>
+                                    <td><input type="button" data-value="-2" value="-2"></td>
+                                    <td><input type="button" data-value="-1" value="-1"></td>
+                                    <td><input type="button" data-value="0" value="0"></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="button" data-value="1" value="1"></td>
+                                    <td><input type="button" data-value="2" value="2"></td>
+                                    <td><input type="button" data-value="3" value="3"></td>
+                                    <td colspan="2"><input type="button" data-value="4" value="4"></td>
+                                </tr>
+                            </table>
+
+                            <label for="CoordY">Координата Y</label>
+
+                            <div>
+                                <input class="col-12" type="text" min="-3" max="5" id="CoordY" placeholder="    Цифорка Y" />
+                            </div>
+                            
+                            <label for="CoordY">Координата Z</label>
+                            
+                            <table class="pd-10px col-12">
+                                <tr id="z-checkbox-container">
+                                    <td><input type="checkbox" value="-4" id="checkbox1"><label for="checkbox1"> 1</label></td>
+                                    <td><input type="checkbox" value="-3" id="checkbox2"><label for="checkbox2"> 2</label></td>
+                                    <td><input type="checkbox" value="-2" id="checkbox3"><label for="checkbox3"> 3</label></td>
+                                    <td><input type="checkbox" value="-1" id="checkbox4"><label for="checkbox4"> 4</label></td>
+                                    <td><input type="checkbox" value="0" id="checkbox5"><label for="checkbox5"> 5</label></td>
+                                </tr>
+                            </table>
+
+                            <div><input class="col-12 pd-10px" type="button" type="submit" value="Отправить!" /></div>
                         </form>
                     </section>
                 </td>
                 <td class="col-8">
-                    <main class="col-8">
-                        <section>
-                            <details>
-                                <summary>Показать задание</summary>
-                                
-                                <img src="assets/img/img.png" alt="" srcset="" />
-                                
-                                
+                    <section>
+                        <details open>
+                            <summary>Показать задание</summary>
+                            <br>
+                            <p>Разработать FastCGI сервер на языке Java, определяющий попадание точки на координатной плоскости в заданную область, и создать HTML-страницу, которая формирует данные для отправки их на обработку этому серверу.
 
-                                <p>Какой-то текст</p>
-                            </details>
-                        </section>
-                    </main>
+Параметр R и координаты точки должны передаваться серверу посредством HTTP-запроса. Сервер должен выполнять валидацию данных и возвращать HTML-страницу с таблицей, содержащей полученные параметры и результат вычислений - факт попадания или непопадания точки в область (допускается в ответе сервера возвращать json строку, вместо html-страницы). Предыдущие результаты должны сохраняться между запросами и отображаться в таблице.
+
+Кроме того, ответ должен содержать данные о текущем времени и времени работы скрипта.</p>
+
+                            <img src="assets/img/img.png" alt="" srcset="" />
+                            
+                            <p>Какой-то текст</p>
+                        </details>
+                    </section>
                 </td>
             </tr>
             <tr>
                 <td colspan="2">
                    <footer>
-                        test
+                        <section>
+                            <h2>Результаты</h2>
+                            <table>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Время</th>
+                                    <th>Входные данные</th>
+                                    <th>Ответ</th>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>2</td>
+                                    <td>x=1 y=2 z=3</td>
+                                    <td>OK</td>
+                                </tr>
+                            </table>
+                        </section>
                    </footer> 
                 </td>
             </tr>
         </table>
-        
-        <!-- <header>
-            <div class="headline">
-                <h1 class="special-fantasy-font-block">Лабораторная работа</h1><h1 id="counter" value="1">1</h1>
-            </div>
-            
-            <hr>
-            
-            <p>Снагин Станислав P3215</p>
-        </header>
-
-        <div class="sn-website-container">
-            <aside class="col-4">
-                <section>
-                    <form action="" method="post" class="sn-form">
-                        
-                        <input type="button" value="what" accesskey="ttt"/>
-
-                        <input type="button" type="submit" value="Отправить!" />
-                        
-                        <input type="radio" name="" id="">
-
-                        <input type="text" min="-3" max="5" placeholder="Цифорка Y" />
-                    </form>
-                </section>
-            </aside>
-
-            <main class="col-8">
-                <section>
-                    <details>
-                        <summary>Показать задание</summary>
-                        
-                        <img src="assets/img/img.png" alt="" srcset="" />
-                        
-                        
-
-                        <p>Какой-то текст</p>
-                       </details>
-                </section>
-            </main>
-        </div>
-    
-        <footer>
-            <section>
-                <table>
-                    
-                </table>
-            </section>
-            какой-то футер (тут будет таблица с результатами)
-        </footer> -->
-        
-        <!-- IMAGE COVER -->
-        <!-- <div class="image-cover" style="background-image: url('assets/img/итмо_bg.png');"></div> -->
 
         <!-- JS BUNDLE --> 
         <script src="dist/script.bundle.js"></script>
