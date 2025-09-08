@@ -16,7 +16,7 @@
   \*************************************/
 /***/ (() => {
 
-eval("{\r\n\r\nvar counterValue = 1;\r\n\r\ndocument.addEventListener(\"DOMContentLoaded\", onDOMContentLoaded);\r\n\r\nfunction onDOMContentLoaded() {\r\n\r\n    const counter = document.getElementById(\"counter\");\r\n    counter.addEventListener(\"click\", (event) => {onCounterUpdate(event)});\r\n\r\n}\r\n\r\nfunction onCounterUpdate(event) {\r\n    counterValue++;\r\n    event.srcElement.innerHTML = counterValue;\r\n}\n\n//# sourceURL=webpack://web-sem3-lab1/./public_html/src/js/index.js?\n}");
+eval("{\n\nvar counterValue = 1;\n\ndocument.addEventListener(\"DOMContentLoaded\", onDOMContentLoaded);\n\nfunction onDOMContentLoaded() {\n\n    const counter = document.getElementById(\"counter\");\n    counter.addEventListener(\"click\", (event) => {onCounterUpdate(event)});\n}\n\nfunction onCounterUpdate(event) {\n    counterValue++;\n    event.srcElement.innerHTML = counterValue;\n}\n\n//# sourceURL=webpack://web-sem3-lab1/./public_html/src/js/index.js?\n}");
 
 /***/ })
 

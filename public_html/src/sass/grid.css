@@ -12,3 +12,17 @@
 .col-10 {width: 83.33%}
 .col-11 {width: 91.67%}
 .col-12 {width: 100%}
+
+
+/* div {
+    transition: color, 1s, ease, 5s;
+} */
+
+
+/* :root {
+    --variable: #fff;
+}
+
+div {
+    background: var(--variable);
+} */

@@ -8,7 +8,6 @@ function onDOMContentLoaded() {
 
     const counter = document.getElementById("counter");
     counter.addEventListener("click", (event) => {onCounterUpdate(event)});
-
 }
 
 function onCounterUpdate(event) {
