@@ -1,21 +1,27 @@
 'use strict'
 
-// const {onDOMContentLoaded} = re
-
 const {onCounterUpdate} = require("./modules/counter");
 
+const {CustomForm} = require("./modules/form")
+
 var counterValue = 1;
+
 
 document.addEventListener("DOMContentLoaded", onDOMContentLoaded);
 
 function onDOMContentLoaded() {
 
+    // COUNTER
+
     const counter = document.getElementById("counter");
 
-    console.log(onCounterUpdate);
-    
-    counter.addEventListener("click", (event) => {counterValue = onCounterUpdate(event, counterValue)});
+    counter.addEventListener("click", (event) => {
+        counterValue = onCounterUpdate(event, counterValue)
+    });
 
-    const checkboxes = document.querySelectorAll("input[id='checkbox*']");
-    console.log(checkboxes);
+    // FORM
+
+    const form = new CustomForm(
+        document.querySelector(".sn-default-form")
+    );
 }

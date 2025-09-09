@@ -16,7 +16,7 @@
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
-eval("{\n\n// const {onDOMContentLoaded} = re\n\nconst {onCounterUpdate} = __webpack_require__(/*! ./modules/counter */ \"./public_html/src/js/modules/counter.js\");\n\nvar counterValue = 1;\n\ndocument.addEventListener(\"DOMContentLoaded\", onDOMContentLoaded);\n\nfunction onDOMContentLoaded() {\n\n    const counter = document.getElementById(\"counter\");\n\n    console.log(onCounterUpdate);\n    \n    counter.addEventListener(\"click\", (event) => {counterValue = onCounterUpdate(event, counterValue)});\n\n    const checkboxes = document.querySelectorAll(\"input[id='checkbox*']\");\n    console.log(checkboxes);\n}\n\n//# sourceURL=webpack://web-sem3-lab1/./public_html/src/js/index.js?\n}");
+eval("{\n\nconst {onCounterUpdate} = __webpack_require__(/*! ./modules/counter */ \"./public_html/src/js/modules/counter.js\");\n\nconst {CustomForm} = __webpack_require__(/*! ./modules/form */ \"./public_html/src/js/modules/form.js\")\n\nvar counterValue = 1;\n\n\ndocument.addEventListener(\"DOMContentLoaded\", onDOMContentLoaded);\n\nfunction onDOMContentLoaded() {\n\n    // COUNTER\n\n    const counter = document.getElementById(\"counter\");\n\n    counter.addEventListener(\"click\", (event) => {\n        counterValue = onCounterUpdate(event, counterValue)\n    });\n\n    // FORM\n\n    const form = new CustomForm(\n        document.querySelector(\".sn-default-form\")\n    );\n}\n\n//# sourceURL=webpack://web-sem3-lab1/./public_html/src/js/index.js?\n}");
 
 /***/ }),
 
@@ -27,6 +27,16 @@ eval("{\n\n// const {onDOMContentLoaded} = re\n\nconst {onCounterUpdate} = __web
 /***/ ((module) => {
 
 eval("{\n\nfunction onCounterUpdate(event, counterValue) {\n    counterValue++;\n    event.srcElement.innerHTML = counterValue;\n    return counterValue;\n}\n\nmodule.exports = {onCounterUpdate};\n\n//# sourceURL=webpack://web-sem3-lab1/./public_html/src/js/modules/counter.js?\n}");
+
+/***/ }),
+
+/***/ "./public_html/src/js/modules/form.js":
+/*!********************************************!*\
+  !*** ./public_html/src/js/modules/form.js ***!
+  \********************************************/
+/***/ ((module) => {
+
+eval("{class CustomForm {\n\n    parentElement = null;\n    pattern = \"input[type='checkbox']\";\n    activeCheckbox = null\n\n    constructor(form) {\n        this.setParentElement(form)\n    }\n\n    setParentElement(element) {\n        this.parentElement = element;\n\n        let checkboxes = this.parentElement.querySelectorAll(this.pattern);\n        \n        checkboxes.forEach(checkbox => {\n            checkbox.addEventListener(\"click\", (e) => {this.__handleCheckboxChange(e)})\n        });\n    }\n\n    __handleCheckboxChange(event) {\n        const clickedCheckbox = event.target;\n\n        if (clickedCheckbox.checked) {\n            if (this.activeCheckbox && this.activeCheckbox !== clickedCheckbox)\n                this.activeCheckbox.checked = false;\n\n            this.activeCheckbox = clickedCheckbox\n            return\n        }\n\n        if (this.activeCheckbox === clickedCheckbox)\n            this.activeCheckbox = null;\n    }\n\n    getSelectedCheckboxValue() {\n        return this.activeCheckbox ? this.activeCheckbox.value : null;\n    }\n\n    getSelectedCheckbox() {\n        return this.activeCheckbox;\n    }\n}\n\nmodule.exports = { CustomForm };\n\n//# sourceURL=webpack://web-sem3-lab1/./public_html/src/js/modules/form.js?\n}");
 
 /***/ })
 
