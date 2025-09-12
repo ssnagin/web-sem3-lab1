@@ -15,7 +15,7 @@
     <body style="background-image: url('assets/img/итмо_bg.png'); background-repeat: repeat-x; background-size: 600px;">        
         
         <table 
-            border="0" 
+            border="0"
             class="col-12"
         >
             <tr class="header">
@@ -38,41 +38,44 @@
                             <br>
 
                             <label for="">Координата X</label>
-                            <table class="pd-10px col-12">
+                            <table id="buttons-single-choice" class="pd-10px col-12">
                                 <tr>
-                                    <td><input type="button" data-value="-4" value="-4"></td>
-                                    <td><input type="button" data-value="-3" value="-3"></td>
-                                    <td><input type="button" data-value="-2" value="-2"></td>
-                                    <td><input type="button" data-value="-1" value="-1"></td>
-                                    <td><input type="button" data-value="0" value="0"></td>
+                                    <td><input type="button" value="-4"></td>
+                                    <td><input type="button" value="-3"></td>
+                                    <td><input type="button" value="-2"></td>
+                                    <td><input type="button" value="-1"></td>
+                                    <td><input type="button" value="0"></td>
                                 </tr>
                                 <tr>
-                                    <td><input type="button" data-value="1" value="1"></td>
-                                    <td><input type="button" data-value="2" value="2"></td>
-                                    <td><input type="button" data-value="3" value="3"></td>
-                                    <td colspan="2"><input type="button" data-value="4" value="4"></td>
+                                    <td><input type="button" value="1"></td>
+                                    <td><input type="button" value="2"></td>
+                                    <td><input type="button" value="3"></td>
+                                    <td colspan="2"><input type="button" value="4"/></td>
                                 </tr>
                             </table>
 
                             <label for="CoordY">Координата Y</label>
 
                             <div>
-                                <input class="col-12" type="text" min="-3" max="5" id="CoordY" placeholder="    Цифорка Y" />
+                                <input id="coordY`" pattern="-?[0-9]+(\.[0-9]+)?" title="Число от -3 до 5" class="col-12" type="text" min="-3" max="5" id="CoordY" placeholder="    Цифорка Y" />
                             </div>
                             
                             <label for="CoordY">Координата Z</label>
                             
                             <table class="pd-10px col-12">
                                 <tr id="z-checkbox-container">
-                                    <td><input type="checkbox" value="1" id="checkbox1"><label for="checkbox1"> 1</label></td>
-                                    <td><input type="checkbox" value="2" id="checkbox2"><label for="checkbox2"> 2</label></td>
-                                    <td><input type="checkbox" value="3" id="checkbox3"><label for="checkbox3"> 3</label></td>
-                                    <td><input type="checkbox" value="4" id="checkbox4"><label for="checkbox4"> 4</label></td>
-                                    <td><input type="checkbox" value="5" id="checkbox5"><label for="checkbox5"> 5</label></td>
+                                    <td><input name="z" type="checkbox" value="1" id="checkbox1"><label for="checkbox1"> 1</label></td>
+                                    <td><input name="z" type="checkbox" value="2" id="checkbox2"><label for="checkbox2"> 2</label></td>
+                                    <td><input name="z" type="checkbox" value="3" id="checkbox3"><label for="checkbox3"> 3</label></td>
+                                    <td><input name="z" type="checkbox" value="4" id="checkbox4"><label for="checkbox4"> 4</label></td>
+                                    <td><input name="z" type="checkbox" value="5" id="checkbox5"><label for="checkbox5"> 5</label></td>
                                 </tr>
                             </table>
 
-                            <div><input class="col-12 pd-10px" type="button" type="submit" value="Отправить!" /></div>
+                            <div><input id="form-submit" class="col-12 pd-10px" type="button" type="submit" value="Отправить!" /></div>
+                        
+                            <div id="error-field">
+                            </div>
                         </form>
                     </section>
                 </td>
@@ -88,8 +91,6 @@
 Кроме того, ответ должен содержать данные о текущем времени и времени работы скрипта.</p>
 
                             <img src="assets/img/img.png" alt="" srcset="" />
-                            
-                            <p>Какой-то текст</p>
                         </details>
                     </section>
                 </td>
