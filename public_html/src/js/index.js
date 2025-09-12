@@ -2,7 +2,7 @@
 
 const {onCounterUpdate} = require("./modules/counter");
 
-const {CustomForm} = require("./modules/form")
+const {CustomForm} = require("./modules/form/form")
 
 var counterValue = 1;
 
@@ -16,7 +16,7 @@ function onDOMContentLoaded() {
     const counter = document.getElementById("counter");
 
     counter.addEventListener("click", (event) => {
-        counterValue = onCounterUpdate(event, counterValue)
+        counterValue = onCounterUpdate(event, counterValue);
     });
 
     // FORM
