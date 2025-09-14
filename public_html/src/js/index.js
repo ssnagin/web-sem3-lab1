@@ -2,7 +2,7 @@
 
 const {onCounterUpdate} = require("./modules/counter");
 
-const {CustomForm} = require("./modules/form/form")
+const {CustomForm} = require("./modules/form/form");
 
 var counterValue = 1;
 
