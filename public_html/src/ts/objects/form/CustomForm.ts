@@ -13,7 +13,7 @@ class CustomForm {
     activeButton : HTMLElement | null = null
     buttonsPattern = "#buttons-single-choice input[type='button']";
 
-    activeTextField : HTMLElement | null = null;
+    activeTextField : HTMLInputElement | null = null;
 
     submitButton: HTMLElement | null = null;
 
@@ -25,7 +25,6 @@ class CustomForm {
         this.rootElement = element;
 
         this.errorElement = document.getElementById("error-field");
-        console.log(12345, this.errorElement);
         // CHECKBOXES
 
         let checkboxes: NodeListOf<HTMLElement> | null = document.querySelectorAll(this.checkboxPattern);
@@ -44,7 +43,7 @@ class CustomForm {
         
         // TEXT FIELD
 
-        this.activeTextField = document.getElementById("coordY");
+        this.activeTextField = document.querySelector("#CoordY");
         console.log(this.activeTextField);
 
         // SUBMIT BUTTON
@@ -87,18 +86,15 @@ class CustomForm {
 
     submitForm(event: MouseEvent) {
 
-        // console.log(event);
-
         try {
             CustomFormValidator.validate(this);
-
+            this.errorElement!.innerHTML = "";
 
         } catch (error) {
 
             let e : FormValidationError = error as FormValidationError;
-        
-            if (this.errorElement == null) return;
-            this.errorElement.innerHTML = e.name + " : " + e.message;
+
+            this.errorElement!.innerHTML = e.name + " : " + e.message;
         }
 
         // var requestData = RequestBuilder.build(this);

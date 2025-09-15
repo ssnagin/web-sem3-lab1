@@ -35,9 +35,9 @@ class CustomFormValidator extends Validator {
 
     static validateZ(form : CustomForm) : void {
 
-        // if (form.activeTextField?.innerText == "")
-        //     throw new FormValidationError("Выберите Y");
+        if (form.activeTextField?.innerText == "")
+            throw new FormValidationError("Выберите Y");
 
-        // console.log(form.activeButton);
+        console.log(form.activeButton);
     }
 }
