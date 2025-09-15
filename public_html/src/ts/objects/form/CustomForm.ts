@@ -61,8 +61,8 @@ class CustomForm {
             if (this.activeCheckbox && this.activeCheckbox !== clickedCheckbox)
                 this.activeCheckbox.checked = false;
 
-            this.activeCheckbox = clickedCheckbox
-            return
+            this.activeCheckbox = clickedCheckbox;
+
         }
 
         if (this.activeCheckbox === clickedCheckbox)
@@ -83,8 +83,24 @@ class CustomForm {
         return this.activeCheckbox;
     }
 
+    getActiveCheckboxes() : Array<HTMLInputElement> {
+
+        let res : HTMLInputElement[] = new Array<HTMLInputElement>;
+
+        let checkboxes : NodeListOf<HTMLInputElement> = document.querySelectorAll("input[type='checkbox']");
+        
+        if (checkboxes.length == 0) return [];
+
+        checkboxes.forEach((checkbox : HTMLInputElement) => {
+            if (checkbox.checked) res.push(checkbox);
+        });
+
+        return res;
+    }
 
     submitForm(event: MouseEvent) {
+
+        console.log(this.getActiveCheckboxes());
 
         try {
             CustomFormValidator.validate(this);
@@ -96,7 +112,7 @@ class CustomForm {
 
             this.errorElement!.innerHTML = e.name + " : " + e.message;
         }
-
+        
         // var requestData = RequestBuilder.build(this);
     }
 }
