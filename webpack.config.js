@@ -3,9 +3,11 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
     mode: "development",
+    // mode: "production",
     entry: {
-        script: path.resolve(__dirname, './public_html/src/js/index.js'),
-        style: path.resolve(__dirname, './public_html/src/sass/style.sass')
+        script: path.resolve(__dirname, './public_html/dist/ts_out/index.js'),
+        style: path.resolve(__dirname, './public_html/src/sass/style.sass'),
+        // style: path.resolve(__dirname, './public_html/src/ts/index.ts'),
     },
     module: {
         rules: [
@@ -18,11 +20,27 @@ module.exports = {
                     'sass-loader',
                 ],
             },
+            {
+                test: /\.tsx?$/,
+                use: 'ts-loader',
+                exclude: /node_modules/,
+            },
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        sourceType: 'module',
+                        presets: ['@babel/preset-env']
+                    }
+                }
+            }
         ]
     },
-    // resolve: {
-    //     extensions: ['*', '.js']
-    // },
+    resolve: {
+        extensions: [".ts", ".tsx", ".js", ".css", ".scss", ".sass"]
+    },
     output: {
         path: path.resolve(__dirname, './public_html/dist/'),
         filename: '[name].bundle.js',

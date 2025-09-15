@@ -1,3 +1,11 @@
+# PROJECT
+/public_html/dist/*
+/public_html/dist/ts_out/*
+!/public_html/dist/ts_out/empty.file
+!/public_html/dist/script.bundle.js
+!/public_html/dist/style.bundle.css
+# !public_html/dist/.htaccess
+
 # FOR TESTS
 
 tests/*

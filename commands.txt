@@ -1,9 +1,11 @@
 40404
 
 ssh -p 2222 -L 8080:localhost:40404 s467525@se.ifmo.ru
+
+scp -P 2222 build/libs/web-sem3-lab1-1.0-SNAPSHOT-all.jar s467525@se.ifmo.ru:httpd-root/fcgi-bin/
+
 cd httpd-root/fcgi-bin/
 httpd -f ~/httpd-root/conf/httpd.conf -k start
 java -DFCGI_PORT=40405 -jar web-sem3-lab1-1.0-SNAPSHOT-all.jar
 
 http://localhost:8080
-
