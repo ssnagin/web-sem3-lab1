@@ -2,7 +2,7 @@
 
 const { onCounterUpdate } = require("./modules/counter/counter");
 
-// const {CustomForm} = require("./modules/form/form");
+const { CustomForm } = require("./objects/form/CustomForm");
 
 var counterValue: number = 1;
 
@@ -21,7 +21,7 @@ function onDOMContentLoaded() {
 
     // FORM
 
-    // const form = new CustomForm(
-    //     document.querySelector(".sn-default-form")
-    // );
+    const form = new CustomForm(
+        document.querySelector(".sn-default-form")
+    );
 }
