@@ -8,7 +8,6 @@ class CustomForm {
     errorElement : HTMLElement | null = null;
 
     checkboxPattern = "input[type='checkbox']";
-    activeCheckbox : HTMLInputElement | null = null
 
     activeButton : HTMLElement | null = null
     buttonsPattern = "#buttons-single-choice input[type='button']";
@@ -23,15 +22,7 @@ class CustomForm {
 
     public setRootElement(element: HTMLElement): void {
         this.rootElement = element;
-
         this.errorElement = document.getElementById("error-field");
-        // CHECKBOXES
-
-        let checkboxes: NodeListOf<HTMLElement> | null = document.querySelectorAll(this.checkboxPattern);
-
-        checkboxes.forEach(checkbox => {
-            checkbox.addEventListener("click", (e: MouseEvent) => {this.handleCheckboxChange(e)})
-        });
 
         // BUTTONS
 
@@ -49,38 +40,19 @@ class CustomForm {
         // SUBMIT BUTTON
 
         var submitBtn : HTMLElement | null = document.getElementById("form-submit");
-
-        submitBtn?.addEventListener("click", e => this.submitForm(e));
-    }
-
-    private handleCheckboxChange(event: MouseEvent) {
-
-        const clickedCheckbox = event.target as HTMLInputElement;
-
-        if (clickedCheckbox.checked) {
-            if (this.activeCheckbox && this.activeCheckbox !== clickedCheckbox)
-                this.activeCheckbox.checked = false;
-
-            this.activeCheckbox = clickedCheckbox;
-
-        }
-
-        if (this.activeCheckbox === clickedCheckbox)
-            this.activeCheckbox = null;
+        submitBtn?.addEventListener("click", (e : MouseEvent) => this.submitForm(e));
     }
 
     private handleActiveButton(event: MouseEvent) {
-        const clickedButton = event.target;
+        console.log(event.target);
+        const clickedButton = event.target as HTMLInputElement;
+        
+        if (clickedButton.value == "reset") {
+            this.activeButton = null;
+            return;
+        }
 
-        this.activeButton = event.target as HTMLElement;
-    }
-
-    getSelectedCheckboxValue() {
-        return this.activeCheckbox ? this.activeCheckbox.value : null;
-    }
-
-    getSelectedCheckbox() {
-        return this.activeCheckbox;
+        this.activeButton = clickedButton;
     }
 
     getActiveCheckboxes() : Array<HTMLInputElement> {
@@ -89,7 +61,7 @@ class CustomForm {
 
         let checkboxes : NodeListOf<HTMLInputElement> = document.querySelectorAll("input[type='checkbox']");
         
-        if (checkboxes.length == 0) return [];
+        if (checkboxes.length == 0) return res;
 
         checkboxes.forEach((checkbox : HTMLInputElement) => {
             if (checkbox.checked) res.push(checkbox);
@@ -109,8 +81,8 @@ class CustomForm {
         } catch (error) {
 
             let e : FormValidationError = error as FormValidationError;
-
             this.errorElement!.innerHTML = e.name + " : " + e.message;
+            
         }
         
         // var requestData = RequestBuilder.build(this);

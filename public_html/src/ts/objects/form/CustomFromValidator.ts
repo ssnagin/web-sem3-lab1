@@ -22,18 +22,20 @@ class CustomFormValidator extends Validator {
         if (form.activeButton == null)
             throw new FormValidationError("Выберите X");
 
-        console.log(form.activeButton);
     }
 
     static validateY(form : CustomForm) : void {
-
-        if (form.activeTextField?.innerText == null)
+        console.log(form.activeTextField?.value);
+        if (form.activeTextField?.value == "")
             throw new FormValidationError("Выберите Y");
-
-        console.log(form.activeTextField);
     }
 
     static validateZ(form : CustomForm) : void {
-  
+        
+        let checkboxes : HTMLInputElement[] = form.getActiveCheckboxes();
+
+        if (checkboxes.length == 0)
+            throw new FormValidationError("Выберите Z");
+        
     }
 }
