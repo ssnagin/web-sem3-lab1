@@ -1,4 +1,7 @@
-const {FormValidationError} = require("../../modules/form/errors/FormValidationError");
+import FormValidationError from "../../modules/form/errors/FormValidationError";
+import CustomFormValidator from "./CustomFromValidator";
+
+export default
 
 class CustomForm {
     rootElement : HTMLElement | null = null;
@@ -83,19 +86,20 @@ class CustomForm {
 
     submitForm(event: MouseEvent) {
 
-        console.log(event);
+        // console.log(event);
 
-        // try {
-        //     Validator.validate(this);
-        // } catch (e) {
-            
-        //     if (!e instanceof FormValidationError) return;
-        //     console.log(this.errorElement);
-        //     this.errorElement.innerHTML = e.name + " : " + e.message;
-        // }
+        try {
+            CustomFormValidator.validate(this);
+
+
+        } catch (error) {
+
+            // let e : FormValidationError = error as FormValidationError;
+        
+            // if (this.errorElement == null) return;
+            // this.errorElement.innerHTML = e.name + " : " + e.message;
+        }
 
         // var requestData = RequestBuilder.build(this);
     }
 }
-
-module.exports = {CustomForm};

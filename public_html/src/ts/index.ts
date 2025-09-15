@@ -1,8 +1,7 @@
 'use strict'
 
-const { onCounterUpdate } = require("./modules/counter/counter");
-
-const { CustomForm } = require("./objects/form/CustomForm");
+import onCounterUpdate from "./modules/counter/counter";
+import CustomForm from "./objects/form/CustomForm";
 
 var counterValue: number = 1;
 
@@ -21,7 +20,9 @@ function onDOMContentLoaded() {
 
     // FORM
 
+    const defaultForm : HTMLElement | null = document?.querySelector(".sn-default-form");
+
     const form = new CustomForm(
-        document.querySelector(".sn-default-form")
+        defaultForm!
     );
 }

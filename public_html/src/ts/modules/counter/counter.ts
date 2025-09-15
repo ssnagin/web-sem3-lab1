@@ -1,3 +1,5 @@
+export default
+
 function onCounterUpdate(event: MouseEvent, counterValue: number): number {
     counterValue++;
     const target = event.target as HTMLElement;
@@ -5,5 +7,3 @@ function onCounterUpdate(event: MouseEvent, counterValue: number): number {
     target.innerHTML = counterValue.toString();
     return counterValue;
 }
-
-module.exports = {onCounterUpdate};

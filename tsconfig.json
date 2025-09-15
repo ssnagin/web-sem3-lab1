@@ -43,6 +43,10 @@
     "skipLibCheck": true,
 
     "allowImportingTsExtensions": false,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+
+
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
   }
 }
