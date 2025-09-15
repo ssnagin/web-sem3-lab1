@@ -1,6 +1,6 @@
 'use strict'
 
-// const {onCounterUpdate} = require("./modules/counter");
+const { onCounterUpdate } = require("./modules/counter/counter");
 
 // const {CustomForm} = require("./modules/form/form");
 
@@ -16,7 +16,7 @@ function onDOMContentLoaded() {
     const counter: HTMLElement | null = document.getElementById("counter");
 
     counter?.addEventListener("click", (event) => {
-        // counterValue = onCounterUpdate(event, counterValue);
+        counterValue = onCounterUpdate(event, counterValue);
     });
 
     // FORM

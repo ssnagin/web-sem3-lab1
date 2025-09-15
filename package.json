@@ -22,6 +22,10 @@
   },
   "keywords": [],
   "devDependencies": {
+    "@babel/core": "^7.28.4",
+    "@babel/preset-env": "^7.28.3",
+    "@types/node": "^24.4.0",
+    "babel-loader": "^10.0.0",
     "sass": "^1.91.0",
     "sass-loader": "^16.0.5",
     "ts-loader": "^9.5.4",
