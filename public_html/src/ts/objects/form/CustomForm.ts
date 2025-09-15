@@ -45,6 +45,7 @@ class CustomForm {
         // TEXT FIELD
 
         this.activeTextField = document.getElementById("coordY");
+        console.log(this.activeTextField);
 
         // SUBMIT BUTTON
 
@@ -94,10 +95,10 @@ class CustomForm {
 
         } catch (error) {
 
-            // let e : FormValidationError = error as FormValidationError;
+            let e : FormValidationError = error as FormValidationError;
         
-            // if (this.errorElement == null) return;
-            // this.errorElement.innerHTML = e.name + " : " + e.message;
+            if (this.errorElement == null) return;
+            this.errorElement.innerHTML = e.name + " : " + e.message;
         }
 
         // var requestData = RequestBuilder.build(this);

@@ -13,18 +13,31 @@ class CustomFormValidator extends Validator {
 
     static override validate(form : CustomForm) : void {
         CustomFormValidator.validateX(form);
+        CustomFormValidator.validateY(form);
+        CustomFormValidator.validateZ(form);
     }
 
     static validateX(form : CustomForm) : void {
 
-        
+        if (form.activeButton == null)
+            throw new FormValidationError("Выберите X");
 
-        // if (form.activeButton == null)
-        //     throw new FormValidationError("Выберите X");
+        console.log(form.activeButton);
+    }
+
+    static validateY(form : CustomForm) : void {
+
+        if (form.activeTextField?.innerText == null)
+            throw new FormValidationError("Выберите Y");
+
+        console.log(form.activeTextField);
+    }
+
+    static validateZ(form : CustomForm) : void {
+
+        // if (form.activeTextField?.innerText == "")
+        //     throw new FormValidationError("Выберите Y");
 
         // console.log(form.activeButton);
-
-        // if (!(Number.isInteger(form.activeButton)))
-        //     throw new FormValidationError("X должен быть числом");
     }
 }
