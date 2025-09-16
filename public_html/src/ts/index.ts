@@ -25,6 +25,4 @@ function onDOMContentLoaded() {
     const form = new CustomForm(
         defaultForm!
     );
-
-    
 }

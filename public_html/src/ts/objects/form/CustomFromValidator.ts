@@ -14,7 +14,7 @@ class CustomFormValidator extends Validator {
     static override validate(form : CustomForm) : void {
         CustomFormValidator.validateX(form);
         CustomFormValidator.validateY(form);
-        CustomFormValidator.validateZ(form);
+        CustomFormValidator.validateR(form);
     }
 
     static validateX(form : CustomForm) : void {
@@ -30,7 +30,7 @@ class CustomFormValidator extends Validator {
             throw new FormValidationError("Выберите Y");
     }
 
-    static validateZ(form : CustomForm) : void {
+    static validateR(form : CustomForm) : void {
         
         let checkboxes : HTMLInputElement[] = form.getActiveCheckboxes();
 
