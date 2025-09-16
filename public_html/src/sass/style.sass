@@ -3,6 +3,7 @@
 @use 'animations'
 
 @use 'modules/forms'
+@use 'modules/canvas'
     
 // При работе с CSS должно быть продемонстрировано использование селекторов потомств, селекторов псевдоклассов, селекторов дочерних элементов, селекторов псевдоэлементов а также такие свойства стилей CSS, как наследование и каскадирование.
 
@@ -46,6 +47,7 @@ header, .header
         padding: 10px
         background-color: rgba(241, 233, 248, 0.3)
         transition: color, 0.5s ease 0s
+        margin-bottom: 48px
 
     section:hover
         transition: color, 0.5s ease 0s
@@ -64,7 +66,6 @@ header, .header
 
 .sn-website-container>*
     padding: 15px
-    
 
 .headline
     display: inline-flex
