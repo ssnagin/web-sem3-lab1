@@ -25,7 +25,7 @@ class CustomFormValidator extends Validator {
     }
 
     static validateY(form : CustomForm) : void {
-        console.log(form.activeTextField?.value);
+
         if (form.activeTextField?.value == "")
             throw new FormValidationError("Выберите Y");
     }
@@ -35,7 +35,7 @@ class CustomFormValidator extends Validator {
         let checkboxes : HTMLInputElement[] = form.getActiveCheckboxes();
 
         if (checkboxes.length == 0)
-            throw new FormValidationError("Выберите Z");
+            throw new FormValidationError("Выберите R");
         
     }
 }

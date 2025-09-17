@@ -1,5 +1,9 @@
 import FormValidationError from "../../modules/form/errors/FormValidationError";
+import { WebServer } from "../../modules/requests/WebServer";
 import CustomFormValidator from "./CustomFromValidator";
+import FormRequestBuilder from "./FormRequestBuilder";
+
+var requestBuilder : FormRequestBuilder = new FormRequestBuilder();
 
 export default
 
@@ -70,7 +74,7 @@ class CustomForm {
 
         return res;
     }
-
+    
     submitForm(event: MouseEvent) {
 
         console.log(this.getActiveCheckboxes());
@@ -86,6 +90,10 @@ class CustomForm {
             
         }
 
-        // var requestData = RequestBuilder.build(this);
+        let requestData = requestBuilder.buildJSON(this);
+        
+        WebServer.send("https://localhost:8080/fast-bin/some-server.jar", requestData).then(data => {
+            console.log(data);
+        });
     }
 }

@@ -33,14 +33,20 @@ function onDOMContentLoaded() {
     const canvases : NodeListOf<HTMLCanvasElement> | null = document.querySelectorAll(".sn-canvas-container > div > canvas");
     var planes : Plane2D[] = []; // Ordered from r=1 to r=5
 
+    
+
     for (let i = 0; i < canvases.length; i++) {
         let plane : Plane2D = new Plane2D(i + 1, canvases.item(i));
         planes.push(plane);
+
+        // plane.throwPoint(new DOMColoredPoint("green", 4, 5));
+        // plane.throwPoint(new DOMColoredPoint("red", 1, 1));
+        // plane.throwPoint(new DOMPoint(5, 4));
+        // plane.throwPoint(new DOMColoredPoint(undefined, 1, 5));
     }
 
-    // testPlane.throwPoint(new DOMColoredPoint("green", 4, 5));
-
-    // testPlane.throwPoint(new DOMColoredPoint("red", 1, 1));
-    // testPlane.throwPoint(new DOMPoint(5, 4));
-    // testPlane.throwPoint(new DOMColoredPoint(undefined, 1, 5));
 }
+
+document.addEventListener("sn-form-response", (event) => {
+    
+})
