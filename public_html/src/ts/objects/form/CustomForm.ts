@@ -4,6 +4,7 @@ import CustomFormValidator from "./CustomFromValidator";
 export default
 
 class CustomForm {
+
     rootElement : HTMLElement | null = null;
     errorElement : HTMLElement | null = null;
 

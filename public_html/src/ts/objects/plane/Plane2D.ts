@@ -25,6 +25,7 @@ class Plane2D {
     }
 
     public clear() {
+        this.points = [];
         this.render();
     }
 

@@ -28,15 +28,19 @@ function onDOMContentLoaded() {
         defaultForm!
     );
 
-    // CANVAS
+    // CANVASES
 
-    const canvases : HTMLCanvasElement | null = document.querySelector(".sn-canvas-container:first-child > div > canvas");
+    const canvases : NodeListOf<HTMLCanvasElement> | null = document.querySelectorAll(".sn-canvas-container > div > canvas");
+    var planes : Plane2D[] = []; // Ordered from r=1 to r=5
 
-    let testPlane : Plane2D = new Plane2D(5, canvases!);
+    for (let i = 0; i < canvases.length; i++) {
+        let plane : Plane2D = new Plane2D(i + 1, canvases.item(i));
+        planes.push(plane);
+    }
 
-    testPlane.throwPoint(new DOMColoredPoint("green", 4, 5));
+    // testPlane.throwPoint(new DOMColoredPoint("green", 4, 5));
 
-    testPlane.throwPoint(new DOMColoredPoint("red", 1, 1));
-    testPlane.throwPoint(new DOMPoint(5, 4));
-    testPlane.throwPoint(new DOMColoredPoint(undefined, 1, 5));
+    // testPlane.throwPoint(new DOMColoredPoint("red", 1, 1));
+    // testPlane.throwPoint(new DOMPoint(5, 4));
+    // testPlane.throwPoint(new DOMColoredPoint(undefined, 1, 5));
 }
