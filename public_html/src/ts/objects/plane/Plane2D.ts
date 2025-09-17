@@ -7,7 +7,7 @@ class Plane2D {
 
     canvas: HTMLCanvasElement;
 
-    radius: number;
+    radius: number = 1;
 
     scale: number = 0.5;
 
@@ -66,6 +66,46 @@ class Plane2D {
         }
         context.restore();
 
+
+        context.save();
+        context.fillStyle = "#AAAAAA";
+        context.beginPath();
+        context.arc(
+            centerX, 
+            centerY, 
+            this.radius * this.scale * gridStepX, 
+            Math.PI,
+            Math.PI/2,
+            true
+        );
+        context.lineTo(centerX, centerY);
+        context.fill()
+        context.restore();
+
+        context.save();
+        context.beginPath();
+        context.fillStyle = "#AAAAAA";
+        context.rect(centerX, centerY, -this.radius * this.scale * gridStepX, -this.radius * this.scale * gridStepY);
+        context.fill();
+        context.restore();
+
+        context.save();
+        let path = new Path2D();
+        context.fillStyle = "#AAAAAA";
+        path.moveTo(centerX, centerY);
+        path.lineTo(
+            centerX,
+            centerY + -this.radius * this.scale * gridStepY,
+        );
+        path.lineTo(
+            centerX + this.radius * this.scale * gridStepX / 2,
+            centerY,
+        );
+        context.fill(
+            path
+        );
+        context.restore();
+
         context.save();
         context.strokeStyle = '#000000';
         context.lineWidth = 2;
@@ -97,7 +137,7 @@ class Plane2D {
 
         // Подписи осей
         context.font = '10px monospace';
-        context.fillStyle = '#000000';
+        context.fillStyle = '#444444';
         context.fillText('X', this.canvas.width - 15, centerY - 10);
         context.fillText('Y', centerX + 10, 15);
         context.fillText('O', centerX - 15, centerY + 15); // Начало координат
@@ -143,6 +183,4 @@ class Plane2D {
             context.restore();
         }
     }
-
-
 }

@@ -32,8 +32,6 @@ function onDOMContentLoaded() {
 
     const canvases : HTMLCanvasElement | null = document.querySelector(".sn-canvas-container:first-child > div > canvas");
 
-    console.log(canvases);
-
     let testPlane : Plane2D = new Plane2D(5, canvases!);
 
     testPlane.throwPoint(new DOMColoredPoint("green", 4, 5));

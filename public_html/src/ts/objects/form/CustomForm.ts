@@ -84,7 +84,7 @@ class CustomForm {
             this.errorElement!.innerHTML = e.name + " : " + e.message;
             
         }
-        
+
         // var requestData = RequestBuilder.build(this);
     }
 }
