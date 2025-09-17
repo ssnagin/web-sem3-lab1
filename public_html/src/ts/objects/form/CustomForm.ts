@@ -92,7 +92,7 @@ class CustomForm {
 
         let requestData = requestBuilder.buildJSON(this);
         
-        WebServer.send("https://localhost:8080/fast-bin/some-server.jar", requestData).then(data => {
+        WebServer.send("http://localhost:8080/fcgi-bin/web-sem3-lab1-1.0-SNAPSHOT-all.jar", requestData).then(data => {
             console.log(data);
         });
     }
