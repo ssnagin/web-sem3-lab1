@@ -4,6 +4,7 @@ import CustomFormValidator from "./CustomFromValidator";
 export default
 
 class CustomForm {
+
     rootElement : HTMLElement | null = null;
     errorElement : HTMLElement | null = null;
 
@@ -84,7 +85,7 @@ class CustomForm {
             this.errorElement!.innerHTML = e.name + " : " + e.message;
             
         }
-        
+
         // var requestData = RequestBuilder.build(this);
     }
 }
