@@ -9,11 +9,13 @@ public class WebServer {
     private FCGIInterface fcgiInterface;
 
     private static String TEST = """
+HTTP/1.1 200 OK
 Content-Type: application/json; charset=utf-8
 Content-Length: %d
-\s
+
+
 %s
-            """;
+        """;
 
     public WebServer(String[] args) {
         fcgiInterface = new FCGIInterface();
@@ -21,6 +23,8 @@ Content-Length: %d
 
     public void launch() {
         while (fcgiInterface.FCGIaccept() >= 0) {
+
+            
 
             String resp = "[\"OK\"]";
             String otvet = TEST.formatted(resp.getBytes(StandardCharsets.UTF_8).length, resp);

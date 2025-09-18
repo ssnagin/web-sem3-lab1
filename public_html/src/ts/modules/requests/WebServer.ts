@@ -18,7 +18,7 @@ interface ErrorResponse {
 export
 
 class WebServer {
-    public static send(url: string, data: string): Promise<SuccessResponse> {
+    public static send(url: string, data: string): Promise<XMLHttpRequest> {
         return new Promise((resolve, reject) => {
             const req = new XMLHttpRequest();
             
@@ -26,31 +26,35 @@ class WebServer {
             req.setRequestHeader("Content-Type", "application/json");
             
             req.onload = () => {
+
                 if (req.status >= 200 && req.status < 300) {
-                    try {
-                        const responseData = req.responseText ? JSON.parse(req.responseText) : {};
-                        resolve({
-                            status: req.status,
-                            statusText: req.statusText,
-                            data: responseData,
-                            headers: req.getAllResponseHeaders()
-                        });
-                    } catch (error) {
-                        resolve({
-                            status: req.status,
-                            statusText: req.statusText,
-                            data: req.responseText,
-                            headers: req.getAllResponseHeaders()
-                        });
-                    }
-                } else {
-                    const errorResponse: ErrorResponse = {
-                        status: req.status,
-                        statusText: req.statusText,
-                        error: req.responseText || 'Unknown error'
-                    };
-                    reject(errorResponse);
-                }
+                    resolve(req);
+                } else reject(req);
+                // if (req.status >= 200 && req.status < 300) {
+                //     try {
+                //         const responseData = req.responseText ? JSON.parse(req.responseText) : {};
+                //         resolve({
+                //             status: req.status,
+                //             statusText: req.statusText,
+                //             data: responseData,
+                //             headers: req.getAllResponseHeaders()
+                //         });
+                //     } catch (error) {
+                //         resolve({
+                //             status: req.status,
+                //             statusText: req.statusText,
+                //             data: req.responseText,
+                //             headers: req.getAllResponseHeaders()
+                //         });
+                //     }
+                // } else {
+                //     const errorResponse: ErrorResponse = {
+                //         status: req.status,
+                //         statusText: req.statusText,
+                //         error: req.responseText || 'Unknown error'
+                //     };
+                //     reject(errorResponse);
+                // }
             };
             
             req.onerror = () => {
