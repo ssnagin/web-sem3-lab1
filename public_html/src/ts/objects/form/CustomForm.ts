@@ -1,5 +1,6 @@
 import FormValidationError from "../../modules/form/errors/FormValidationError";
 import { WebServer } from "../../modules/requests/WebServer";
+import { CustomFormFormatter } from "./CustomFormFormatter";
 import CustomFormValidator from "./CustomFromValidator";
 import FormRequestBuilder from "./FormRequestBuilder";
 
@@ -40,7 +41,9 @@ class CustomForm {
         // TEXT FIELD
 
         this.activeTextField = document.querySelector("#CoordY");
-        console.log(this.activeTextField);
+        this.activeTextField?.addEventListener("input", (e) => {
+            CustomFormFormatter.formatFloatUserInput(e.target as HTMLInputElement);
+        });
 
         // SUBMIT BUTTON
 
