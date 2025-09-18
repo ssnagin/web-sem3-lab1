@@ -66,3 +66,4 @@
 - Поддержать хренение точек в IndexedDB
 - Переписать весь код на TypeScript (https://roadmap.sh/typescript)
 - ? Сделать страницу offline-first (как получится)
+- Проверить helios.cs.ifmo.ru

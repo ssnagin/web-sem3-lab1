@@ -44,3 +44,14 @@ java {
 tasks.test {
     useJUnitPlatform()
 }
+
+tasks.shadowJar {
+    archiveFileName.set("server.jar")
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    manifest {
+        attributes(
+            "Main-Class" to "com.ssnagin.Main"
+        )
+    }
+}
