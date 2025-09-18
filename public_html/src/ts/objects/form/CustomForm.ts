@@ -52,7 +52,7 @@ class CustomForm {
     }
 
     private handleActiveButton(event: MouseEvent) {
-        console.log(event.target);
+
         const clickedButton = event.target as HTMLInputElement;
         
         if (clickedButton.value == "reset") {
@@ -80,8 +80,6 @@ class CustomForm {
     
     submitForm(event: MouseEvent) {
 
-        console.log(this.getActiveCheckboxes());
-
         try {
             CustomFormValidator.validate(this);
             this.errorElement!.innerHTML = "";
@@ -91,12 +89,15 @@ class CustomForm {
             let e : FormValidationError = error as FormValidationError;
             this.errorElement!.innerHTML = e.name + " : " + e.message;
             
+            return;
         }
 
         let requestData = requestBuilder.buildJSON(this);
+
+        console.log("REQUEST DATA : ", requestData);
         
         WebServer.send("/fcgi-bin/server.jar", requestData).then(data => {
-            console.log(data);
+            console.log(JSON.parse(data.responseText));
         });
     }
 }

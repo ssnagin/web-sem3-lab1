@@ -11,6 +11,8 @@ repositories {
 }
 
 dependencies {
+
+
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
 
@@ -21,6 +23,8 @@ dependencies {
 
     testCompileOnly("org.projectlombok:lombok:1.18.38")
     testAnnotationProcessor("org.projectlombok:lombok:1.18.38")
+
+    implementation("org.json:json:20250517")
 }
 
 //tasks.jar {

@@ -2,10 +2,14 @@ import RequestBuilder from "../../modules/requests/RequestBuilder";
 import CustomForm from "./CustomForm";
 
 
-interface schema {
-    x: Number;
-    y: Number;
-    r: Number;
+interface CoordinateSchema {
+    x: number;
+    y: number;
+    r: number;
+};
+
+interface ResultSchema {
+    coordinates: CoordinateSchema[];
 };
 
 export default
@@ -14,12 +18,17 @@ class FormRequestBuilder extends RequestBuilder<CustomForm> {
 
     public build(form : CustomForm) : object {
         
-        let res : {}[] = [];
+        let res: ResultSchema = {
+            coordinates: []
+        };
+
         let activeCheckboxes = form.getActiveCheckboxes();
+
+        console.log("ACTIVE CHECKBOXES", activeCheckboxes);
 
         activeCheckboxes.forEach(activeCheckbox => {
 
-            let result : schema  = {x: 0, y: 0, r: 0};
+            let result: CoordinateSchema = { x: 0, y: 0, r: 0 };
 
             result.x = Number.parseInt(
                 form.activeButton!.getAttribute("value") as string
@@ -32,7 +41,7 @@ class FormRequestBuilder extends RequestBuilder<CustomForm> {
                 activeCheckbox.value as string
             )
 
-            res.push(result);
+            res.coordinates.push(result);
         });
 
         return res;

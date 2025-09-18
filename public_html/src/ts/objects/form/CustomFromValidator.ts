@@ -32,7 +32,7 @@ class CustomFormValidator extends Validator {
 
         try {
             yValue = Number.parseFloat(form.activeTextField!.value);
-            console.log(yValue);
+
         } catch (e) {
             throw new FormValidationError("Ошибка парсинга Y");
         }
