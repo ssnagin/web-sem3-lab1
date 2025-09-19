@@ -79,6 +79,11 @@
                             </div>
                         </form>
                     </section>
+                    <section>
+                        <h2>IndexedDB модуль</h2>
+                        <hr>
+                        <button id="reset-db">Сбросить данные из базы</button>
+                    </section>
                 </td>
                 <td class="col-8">
                     <section>
@@ -125,19 +130,12 @@
                    <footer>
                         <section>
                             <h2>Результаты</h2>
-                            <table>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Время</th>
-                                    <th>Входные данные</th>
-                                    <th>Ответ</th>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>2</td>
-                                    <td>x=1 y=2 z=3</td>
-                                    <td>OK</td>
-                                </tr>
+                            <br>
+                            <button id="clear-table">Отчистить</button>
+                            <table class="col-6" id="sn-form-result-table">
+                                <tbody>
+                                    
+                                </tbody>
                             </table>
                         </section>
                    </footer> 

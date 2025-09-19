@@ -244,3 +244,18 @@ footer {
   background-color: rgba(5, 7, 10, 0.5);
   padding: 20px;
 }
+footer * {
+  margin: 0 auto;
+  text-align: center;
+}
+footer tbody > * > * {
+  padding: 10px;
+  margin: 5px;
+  border-radius: 10px;
+  border: 1px solid white;
+  background-color: #BBB;
+}
+footer section:first-child {
+  max-height: 500px;
+  overflow: scroll;
+}

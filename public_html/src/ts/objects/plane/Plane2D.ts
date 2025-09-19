@@ -183,7 +183,7 @@ class Plane2D {
                 );
                 context.fill();
             });
-            
+
             context.restore();
         }
     }

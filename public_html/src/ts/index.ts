@@ -4,16 +4,22 @@ import onCounterUpdate from "./modules/counter/counter";
 import DOMColoredPoint from "./modules/types/DOMColoredPoint";
 import CustomForm from "./objects/form/CustomForm";
 import { Coordinates, FormResponseData } from "./objects/form/FormResponseData";
+import PointsDB, { StoredPoint } from "./objects/indexedDB/PointsDB";
 import Plane2D from "./objects/plane/Plane2D";
 import PlaneManager from "./objects/plane/PlaneManager";
+import CoordsTable from "./objects/table/CoordsTable";
 
 var counterValue: number = 1;
 
 var planes : PlaneManager = new PlaneManager();
 
+var coordsTable : CoordsTable | null = null;
+
+var pointsDB: PointsDB | null = null;
+
 document.addEventListener("DOMContentLoaded", onDOMContentLoaded);
 
-function onDOMContentLoaded() {
+async function onDOMContentLoaded() {
 
     // COUNTER
 
@@ -31,20 +37,33 @@ function onDOMContentLoaded() {
         defaultForm!
     );
 
+    // TABLE
+
+    const table : HTMLTableElement | null = document?.querySelector("#sn-form-result-table");
+
+    coordsTable = new CoordsTable(table!);
+
     // CANVASES
 
     const canvases : NodeListOf<HTMLCanvasElement> | null = document.querySelectorAll(".sn-canvas-container > div > canvas");
 
-    
-
     for (let i = 0; i < canvases.length; i++) {
         let plane : Plane2D = new Plane2D(i + 1, canvases.item(i));
         planes.add(plane);
+    }
 
-        // plane.throwPoint(new DOMColoredPoint("green", 4, 5));
-        // plane.throwPoint(new DOMColoredPoint("red", 1, 1));
-        // plane.throwPoint(new DOMPoint(5, 4));
-        // plane.throwPoint(new DOMColoredPoint(undefined, 1, 5));
+
+    // POINTS DB INIT
+
+    pointsDB = new PointsDB();
+
+    try {
+        pointsDB.init();
+        console.log('IndexedDB initialized successfully');
+        
+        await loadSavedPoints();
+    } catch (error) {
+        console.error('Failed to initialize IndexedDB:', error);
     }
 
 }
@@ -62,7 +81,22 @@ document.addEventListener("sn-form-response", (event : Event) => {
     let plane : Plane2D;
     let prepared : DOMColoredPoint;
 
-    coordinates.forEach(coordinate => {
+    coordinates.forEach(async (coordinate: Coordinates) => {
+
+        if (pointsDB) {
+            try {
+                await pointsDB.addPoint({
+                    result: coordinate.result,
+                    x: coordinate.x,
+                    y: coordinate.y,
+                    r: coordinate.r,
+                    time: data.time
+                });
+                console.log('Point saved to database:', coordinate);
+            } catch (error) {
+                console.error('Error saving point to database:', error);
+            }
+        }
 
         prepared = new DOMColoredPoint();
         
@@ -81,5 +115,79 @@ document.addEventListener("sn-form-response", (event : Event) => {
         }
 
         plane.throwPoint(prepared);
+
+        // ADD ROW IN TABLE
+
+        if (coordsTable == null) return;
+
+        coordsTable.addRow(
+            "<tr><td>" + coordsTable.getCounter() + "</td><td>" + data.time + "</td><td>" + coordinate.x + "</td><td>" + coordinate.y + "</td><td>" + coordinate.r + "</td><td>" + coordinate.result + "</td></tr>"
+        );
     });
+});
+
+
+async function loadSavedPoints() {
+    if (!pointsDB) return;
+    
+    try {
+        const savedPoints = await pointsDB.getAllPoints();
+        console.log(`Loaded ${savedPoints.length} points from database`);
+        
+        savedPoints.forEach((point: StoredPoint) => {
+            try {
+                const rValue = parseInt(point.r);
+                
+                console.log("POINTTTT", point, savedPoints);
+                
+                let plane : Plane2D = planes.plane2Dlist[rValue - 1]!;
+                
+                console.log("PLANEEEE", plane, rValue, planes);
+                plane.throwPoint(
+                    new DOMColoredPoint(
+                        point.result === 'hit' ? Plane2D.POINT_HIT_COLOR : Plane2D.POINT_MISS_COLOR,
+                        Number.parseFloat(point.x),
+                        Number.parseFloat(point.y)
+                    )
+                );
+            } catch (error) {
+                console.error('Error rendering point from DB:', error, point);
+            }
+            
+            if (coordsTable) {
+                coordsTable.addRow(
+                    `<tr><td>${coordsTable.getCounter()}</td><td>${point.time}</td><td>${point.x}</td><td>${point.y}</td><td>${point.r}</td><td>${point.result}</td></tr>`
+                );
+            }
+        });
+    } catch (error) {
+        console.error('Error loading points from database:', error);
+    }
+}
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const resetButton = document.querySelector('#reset-db');
+    if (resetButton) {
+        resetButton.addEventListener('click', async () => {
+            if (!pointsDB) {
+                alert('База данных не инициализирована');
+                return;
+            }
+
+            if (confirm('Вы уверены, что хотите удалить все данные из базы?')) {
+                try {
+                    await pointsDB.clearAllPoints();
+
+                    planes.plane2Dlist.forEach(plane => plane.clear());
+
+                    if (coordsTable) coordsTable.clear();
+                    alert('Данные успешно удалены из базы данных');
+                } catch (error) {
+                    console.error('Error clearing database:', error);
+                    alert('Ошибка при очистке базы данных');
+                }
+            }
+        });
+    }
 });

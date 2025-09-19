@@ -1,3 +1,4 @@
+import ElementController from "../../modules/ElementController";
 import FormValidationError from "../../modules/form/errors/FormValidationError";
 import { WebServer } from "../../modules/requests/WebServer";
 import { CustomFormFormatter } from "./CustomFormFormatter";
@@ -7,9 +8,12 @@ import FormRequestBuilder from "./FormRequestBuilder";
 var requestBuilder : FormRequestBuilder = new FormRequestBuilder();
 
 
-export default class CustomForm {
+export default 
+
+class CustomForm implements ElementController<HTMLElement> {
 
     rootElement : HTMLElement | null = null;
+
     errorElement : HTMLElement | null = null;
 
     checkboxPattern = "input[type='checkbox']";
@@ -77,7 +81,7 @@ export default class CustomForm {
         return res;
     }
     
-    submitForm(event: MouseEvent) {
+    public submitForm(event: MouseEvent) {
 
         try {
             CustomFormValidator.validate(this);
@@ -96,7 +100,6 @@ export default class CustomForm {
         console.log("REQUEST DATA : ", requestData);
         
         WebServer.send("/fcgi-bin/server.jar", requestData).then(data => {
-            // console.log(JSON.parse(data.responseText));
 
             const event : CustomEvent = new CustomEvent("sn-form-response", {
                 detail: data
