@@ -6,9 +6,8 @@ import FormRequestBuilder from "./FormRequestBuilder";
 
 var requestBuilder : FormRequestBuilder = new FormRequestBuilder();
 
-export default
 
-class CustomForm {
+export default class CustomForm {
 
     rootElement : HTMLElement | null = null;
     errorElement : HTMLElement | null = null;
@@ -97,7 +96,21 @@ class CustomForm {
         console.log("REQUEST DATA : ", requestData);
         
         WebServer.send("/fcgi-bin/server.jar", requestData).then(data => {
-            console.log(JSON.parse(data.responseText));
+            // console.log(JSON.parse(data.responseText));
+
+            const event : CustomEvent = new CustomEvent("sn-form-response", {
+                detail: data
+            });
+
+            try {
+                document.dispatchEvent(event);
+            } catch (e) {
+                console.error("COULD NOT THROW EVENT", event);
+            }
+
+        }).catch(error => {
+            console.log(error);
         });
     }
 }
+

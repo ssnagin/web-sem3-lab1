@@ -6,7 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="c15050d0-675a-4ed0-aa6c-c07c205cc41e" name="Changes" comment="⭐ Update variant">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ssnagin/WebServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssnagin/WebServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public_html/dist/script.bundle.js" beforeDir="false" afterPath="$PROJECT_DIR$/public_html/dist/script.bundle.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public_html/src/ts/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public_html/src/ts/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public_html/src/ts/objects/form/CustomForm.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public_html/src/ts/objects/form/CustomForm.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public_html/src/ts/objects/plane/Plane2D.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public_html/src/ts/objects/plane/Plane2D.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
