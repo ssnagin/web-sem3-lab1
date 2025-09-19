@@ -35,6 +35,7 @@ class CoordsTable implements ElementController<HTMLTableElement> {
                 <tr>
                     <th>ID</th>
                     <th>Время</th>
+                    <th>Наносекунды</th>
                     <th>x</th>
                     <th>y</th>
                     <th>r</th>
@@ -58,6 +59,7 @@ class CoordsTable implements ElementController<HTMLTableElement> {
             <tr>
                 <th>ID</th>
                 <th>Время</th>
+                <th>Наносекунды</th>
                 <th>x</th>
                 <th>y</th>
                 <th>r</th>

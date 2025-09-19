@@ -11,6 +11,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.time.format.DateTimeFormatter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
@@ -19,15 +20,6 @@ import java.util.LinkedList;
 public class WebServer {
 
     private FCGIInterface fcgiInterface;
-
-    private static String TEST = """
-HTTP/1.1 200 OK
-Content-Type: application/json; charset=utf-8
-Content-Length: %d
-
-
-%s
-        """;
 
     public WebServer(String[] args) {
         fcgiInterface = new FCGIInterface();
@@ -44,12 +36,16 @@ Content-Length: %d
         String method = FCGIInterface.request.params.getProperty("REQUEST_METHOD");
         if (!method.equals("POST")) return;
 
+        long startTime = System.nanoTime();
+
         HTTPResponse response = new HTTPResponse();
 
         JSONObject jsonResponse = new JSONObject();
         JSONArray jsonResponseCoordinates = new JSONArray();
 
-        jsonResponse.put("time", LocalDateTime.now());
+        jsonResponse.put("time", LocalDateTime.now().format(
+                DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss")
+        ));
         jsonResponse.put("status", "ok");
 
         String requestData = "";
@@ -108,6 +104,11 @@ Content-Length: %d
         }
 
         jsonResponse.put("coordinates", jsonResponseCoordinates);
+
+        long endTime = System.nanoTime();
+        long duration = (endTime - startTime);
+
+        jsonResponse.put("nanoseconds", duration);
 
         response.setContent(jsonResponse.toString());
         System.out.println(response.build());

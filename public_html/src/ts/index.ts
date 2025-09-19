@@ -71,6 +71,8 @@ async function onDOMContentLoaded() {
 document.addEventListener("sn-form-response", (event : Event) => {
 
     const response : XMLHttpRequest = (event as CustomEvent).detail;
+
+    console.debug("SERVER FORM RESPONSE", response);
     
     const data : FormResponseData = JSON.parse(response.responseText);
 
@@ -90,7 +92,8 @@ document.addEventListener("sn-form-response", (event : Event) => {
                     x: coordinate.x,
                     y: coordinate.y,
                     r: coordinate.r,
-                    time: data.time
+                    time: data.time,
+                    nanoseconds: Number.parseInt(data.nanoseconds)
                 });
                 console.log('Point saved to database:', coordinate);
             } catch (error) {
@@ -121,7 +124,7 @@ document.addEventListener("sn-form-response", (event : Event) => {
         if (coordsTable == null) return;
 
         coordsTable.addRow(
-            "<tr><td>" + coordsTable.getCounter() + "</td><td>" + data.time + "</td><td>" + coordinate.x + "</td><td>" + coordinate.y + "</td><td>" + coordinate.r + "</td><td>" + coordinate.result + "</td></tr>"
+            "<tr><td>" + coordsTable.getCounter() + "</td><td>" + data.time + "</td><td>" + data.nanoseconds +  "</td><td>" + coordinate.x + "</td><td>" + coordinate.y + "</td><td>" + coordinate.r + "</td><td>" + coordinate.result + "</td></tr>"
         );
     });
 });
@@ -156,7 +159,7 @@ async function loadSavedPoints() {
             
             if (coordsTable) {
                 coordsTable.addRow(
-                    `<tr><td>${coordsTable.getCounter()}</td><td>${point.time}</td><td>${point.x}</td><td>${point.y}</td><td>${point.r}</td><td>${point.result}</td></tr>`
+                    `<tr><td>${coordsTable.getCounter()}</td><td>${point.time}</td><td>`+point.nanoseconds+`</td><td>${point.x}</td><td>${point.y}</td><td>${point.r}</td><td>${point.result}</td></tr>`
                 );
             }
         });
@@ -191,3 +194,13 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
+
+// INTERNET
+
+window.addEventListener("online", e => {
+    document.querySelector("#internet-status")!.innerHTML = "есть";
+});
+
+window.addEventListener("offline", e => {
+    document.querySelector("#internet-status")!.innerHTML = "вы оффлайн!";
+})

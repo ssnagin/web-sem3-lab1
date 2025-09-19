@@ -6,6 +6,7 @@ export interface StoredPoint {
     r: string;
     time: string;
     timestamp: number;
+    nanoseconds: number;
 }
 
 export default class PointsDB {

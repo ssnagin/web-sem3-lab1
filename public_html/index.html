@@ -10,6 +10,10 @@
         <!-- CSS BUNDLE -->
         <link rel="stylesheet" href="dist/style.bundle.css" />
 
+        <!--  -->
+
+        <link rel="icon" href="assets/img/duck.png" type="image/x-icon" />
+
         <title>Лабораторная работа</title>
     </head>
     <body style="background-image: url('assets/img/итмо_bg.png'); background-repeat: repeat-x; background-size: 600px;">        
@@ -23,7 +27,7 @@
             <tr class="header">
                 <td class="col-12" colspan="2">
                     <div class="headline">
-                        <h1 class="special-fantasy-font-block">Лабораторная работа</h1><h1 id="counter" value="1">1</h1>
+                        <h1 class="special-fantasy-font-block">Лабораторная работа</h1><h1 style="user-select: none;" id="counter" value="1">1</h1>
                     </div>
                     <hr>
                     
@@ -83,8 +87,15 @@
                     </section>
                     <section>
                         <h2>IndexedDB модуль</h2>
-                        <hr>
+                        <br>
                         <button id="reset-db">Сбросить данные из базы</button>
+
+                    </section>
+                    <section>
+                        <h2>Offline-first модуль</h2>
+                        <br>
+                        <p>Состояние интернета : <span id="internet-status">есть</span></p>
+                        
                     </section>
                 </td>
                 <td class="col-8">
