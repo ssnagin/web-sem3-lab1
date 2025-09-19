@@ -61,14 +61,14 @@ Content-Length: %d
             JSONObject jsonRequest = new JSONObject(requestData);
             JSONArray coordinateArray = jsonRequest.getJSONArray("coordinates");
 
-            String x, y, R;
+            Object x, y, R;
             Point2DR point2DR;
 
             for (int i = 0; i < coordinateArray.length(); i++) {
                 JSONObject pointObj = coordinateArray.getJSONObject(i);
-                x = pointObj.getString("x");
-                y = pointObj.getString("y");
-                R = pointObj.getString("R");
+                x = pointObj.get("x");
+                y = pointObj.get("y");
+                R = pointObj.get("r");
 
                 points2DR.add(
                         Point2DRBuilder.build(x,y,R)
@@ -95,7 +95,7 @@ Content-Length: %d
 
             jsonPoint.put("x", point.getX());
             jsonPoint.put("y", point.getY());
-            jsonPoint.put("R", point.getR());
+            jsonPoint.put("r", point.getR());
 
             try {
                 CoordsValidator.validate(point);
