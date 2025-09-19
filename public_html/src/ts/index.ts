@@ -6,10 +6,13 @@ import CustomForm from "./objects/form/CustomForm";
 import { Coordinates, FormResponseData } from "./objects/form/FormResponseData";
 import Plane2D from "./objects/plane/Plane2D";
 import PlaneManager from "./objects/plane/PlaneManager";
+import CoordsTable from "./objects/table/CoordsTable";
 
 var counterValue: number = 1;
 
 var planes : PlaneManager = new PlaneManager();
+
+var coordsTable : CoordsTable | null = null;
 
 document.addEventListener("DOMContentLoaded", onDOMContentLoaded);
 
@@ -30,6 +33,12 @@ function onDOMContentLoaded() {
     const form = new CustomForm(
         defaultForm!
     );
+
+    // TABLE
+
+    const table : HTMLTableElement | null = document?.querySelector("#sn-form-result-table");
+
+    coordsTable = new CoordsTable(table!);
 
     // CANVASES
 
@@ -81,5 +90,13 @@ document.addEventListener("sn-form-response", (event : Event) => {
         }
 
         plane.throwPoint(prepared);
+
+        // ADD ROW IN TABLE
+
+        if (coordsTable == null) return;
+
+        coordsTable.addRow(
+            "<tr><td>" + coordsTable.getCounter() + "</td><td>" + data.time + "</td><td>" + coordinate.x + "</td><td>" + coordinate.y + "</td><td>" + coordinate.r + "</td><td>" + coordinate.result + "</td></tr>"
+        );
     });
 });
