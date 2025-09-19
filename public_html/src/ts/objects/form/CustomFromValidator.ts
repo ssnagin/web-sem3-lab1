@@ -21,13 +21,26 @@ class CustomFormValidator extends Validator {
 
         if (form.activeButton == null)
             throw new FormValidationError("Выберите X");
-
     }
 
     static validateY(form : CustomForm) : void {
-        console.log(form.activeTextField?.value);
+
         if (form.activeTextField?.value == "")
             throw new FormValidationError("Выберите Y");
+
+        let yValue = 0;
+
+        try {
+            yValue = Number.parseFloat(form.activeTextField!.value);
+
+        } catch (e) {
+            throw new FormValidationError("Ошибка парсинга Y");
+        }
+
+        if (
+            yValue > 5 ||
+            yValue < -3
+        ) throw new FormValidationError("Y должен быть от -3 до 5")
     }
 
     static validateR(form : CustomForm) : void {
@@ -35,7 +48,7 @@ class CustomFormValidator extends Validator {
         let checkboxes : HTMLInputElement[] = form.getActiveCheckboxes();
 
         if (checkboxes.length == 0)
-            throw new FormValidationError("Выберите Z");
+            throw new FormValidationError("Выберите R");
         
     }
 }

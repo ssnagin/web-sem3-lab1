@@ -5,6 +5,9 @@ export default
 
 class Plane2D {
 
+    static POINT_HIT_COLOR = "green";
+    static POINT_MISS_COLOR = "red";
+
     canvas: HTMLCanvasElement;
 
     radius: number = 1;

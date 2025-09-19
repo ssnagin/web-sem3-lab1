@@ -1,9 +1,13 @@
 import FormValidationError from "../../modules/form/errors/FormValidationError";
+import { WebServer } from "../../modules/requests/WebServer";
+import { CustomFormFormatter } from "./CustomFormFormatter";
 import CustomFormValidator from "./CustomFromValidator";
+import FormRequestBuilder from "./FormRequestBuilder";
 
-export default
+var requestBuilder : FormRequestBuilder = new FormRequestBuilder();
 
-class CustomForm {
+
+export default class CustomForm {
 
     rootElement : HTMLElement | null = null;
     errorElement : HTMLElement | null = null;
@@ -36,7 +40,9 @@ class CustomForm {
         // TEXT FIELD
 
         this.activeTextField = document.querySelector("#CoordY");
-        console.log(this.activeTextField);
+        this.activeTextField?.addEventListener("input", (e) => {
+            CustomFormFormatter.formatFloatUserInput(e.target as HTMLInputElement);
+        });
 
         // SUBMIT BUTTON
 
@@ -45,7 +51,7 @@ class CustomForm {
     }
 
     private handleActiveButton(event: MouseEvent) {
-        console.log(event.target);
+
         const clickedButton = event.target as HTMLInputElement;
         
         if (clickedButton.value == "reset") {
@@ -70,10 +76,8 @@ class CustomForm {
 
         return res;
     }
-
+    
     submitForm(event: MouseEvent) {
-
-        console.log(this.getActiveCheckboxes());
 
         try {
             CustomFormValidator.validate(this);
@@ -84,8 +88,29 @@ class CustomForm {
             let e : FormValidationError = error as FormValidationError;
             this.errorElement!.innerHTML = e.name + " : " + e.message;
             
+            return;
         }
 
-        // var requestData = RequestBuilder.build(this);
+        let requestData = requestBuilder.buildJSON(this);
+
+        console.log("REQUEST DATA : ", requestData);
+        
+        WebServer.send("/fcgi-bin/server.jar", requestData).then(data => {
+            // console.log(JSON.parse(data.responseText));
+
+            const event : CustomEvent = new CustomEvent("sn-form-response", {
+                detail: data
+            });
+
+            try {
+                document.dispatchEvent(event);
+            } catch (e) {
+                console.error("COULD NOT THROW EVENT", event);
+            }
+
+        }).catch(error => {
+            console.log(error);
+        });
     }
 }
+
