@@ -4,7 +4,7 @@ export default
 
 class PlaneManager {
 
-    plane2Dlist : Array<Plane2D> = new Array();
+    public plane2Dlist : Array<Plane2D> = new Array();
     
     public add(plane : Plane2D) : void {
         this.plane2Dlist.push(plane);
