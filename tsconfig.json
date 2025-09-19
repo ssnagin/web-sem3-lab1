@@ -3,7 +3,7 @@
   "compilerOptions": {
     // File Layout
     // "rootDir": "./src",
-    "outDir": "./public_html/dist/ts_out/",
+    "outDir": "./public_html/src/ts_out/",
 
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
