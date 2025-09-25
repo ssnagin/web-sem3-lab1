@@ -82,7 +82,7 @@ define(['./workbox-8a7d6601'], (function (workbox) { 'use strict';
     "revision": "1.0.0"
   }, {
     "url": "script.bundle.js",
-    "revision": "013d64a0231b9401fff3aee6d8faf71c"
+    "revision": "94ac04e860115dee0cd579f1fbb700a2"
   }, {
     "url": "style.bundle.css",
     "revision": "0933cd5866a6874b559157ec9ae14e79"

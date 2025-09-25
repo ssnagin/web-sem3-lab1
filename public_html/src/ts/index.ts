@@ -8,14 +8,15 @@ import PointsDB, { StoredPoint } from "./objects/indexedDB/PointsDB";
 import Plane2D from "./objects/plane/Plane2D";
 import PlaneManager from "./objects/plane/PlaneManager";
 import CoordsTable from "./objects/table/CoordsTable";
+import { WorkboxManager } from "./modules/workbox/WorkboxManager";
+
 
 var counterValue: number = 1;
-
 var planes : PlaneManager = new PlaneManager();
-
 var coordsTable : CoordsTable | null = null;
-
 var pointsDB: PointsDB | null = null;
+
+var workboxManager = WorkboxManager.getInstance();
 
 document.addEventListener("DOMContentLoaded", onDOMContentLoaded);
 
@@ -52,6 +53,33 @@ async function onDOMContentLoaded() {
         planes.add(plane);
     }
 
+    // INDEXED DB RESET BUTTON
+
+    const idbResetButton = document.querySelector('#reset-db');
+
+    if (idbResetButton) {
+        idbResetButton!.addEventListener('click', async () => {
+            if (!pointsDB) {
+                alert('База данных не инициализирована');
+                return;
+            }
+
+            if (!confirm('Вы уверены, что хотите удалить все данные из базы?')) return;
+
+            try {
+                await pointsDB.clearAllPoints();
+
+                planes.plane2Dlist.forEach(plane => plane.clear());
+
+                if (coordsTable) coordsTable.clear();
+                alert('Данные успешно удалены из базы данных');
+            } catch (error) {
+                console.error('Error clearing database:', error);
+                alert('Ошибка при очистке базы данных');
+            }
+        });
+    }
+
 
     // POINTS DB INIT
 
@@ -66,6 +94,30 @@ async function onDOMContentLoaded() {
         console.error('Failed to initialize IndexedDB:', error);
     }
 
+    // WORKBOX MANAGER
+
+    const pwaLogs = document.getElementById("pwa-logs");
+
+    pwaLogs!.addEventListener("workbox-message", 
+        (message : Event) => {
+            const response : string = (message as CustomEvent).detail;
+            pwaLogs!.innerHTML += response + "\n";
+        }
+    );
+
+    await workboxManager.register();
+
+    setTimeout(() => {
+
+    checkPrerequisites();
+
+    if (navigator.serviceWorker.controller) {
+        console.log(navigator.serviceWorker);
+        document.querySelector("#internet-status")!.innerHTML = "есть (оффлайн готов)";
+    } else {
+        console.log('no service worker is available');
+    }
+}, 5500);
 }
 
 document.addEventListener("sn-form-response", (event : Event) => {
@@ -168,33 +220,6 @@ async function loadSavedPoints() {
     }
 }
 
-
-document.addEventListener("DOMContentLoaded", () => {
-    const resetButton = document.querySelector('#reset-db');
-    if (resetButton) {
-        resetButton.addEventListener('click', async () => {
-            if (!pointsDB) {
-                alert('База данных не инициализирована');
-                return;
-            }
-
-            if (confirm('Вы уверены, что хотите удалить все данные из базы?')) {
-                try {
-                    await pointsDB.clearAllPoints();
-
-                    planes.plane2Dlist.forEach(plane => plane.clear());
-
-                    if (coordsTable) coordsTable.clear();
-                    alert('Данные успешно удалены из базы данных');
-                } catch (error) {
-                    console.error('Error clearing database:', error);
-                    alert('Ошибка при очистке базы данных');
-                }
-            }
-        });
-    }
-});
-
 // INTERNET
 
 window.addEventListener("online", e => {
@@ -204,3 +229,13 @@ window.addEventListener("online", e => {
 window.addEventListener("offline", e => {
     document.querySelector("#internet-status")!.innerHTML = "вы оффлайн!";
 })
+
+function checkPrerequisites(): boolean {
+    console.log('🔍 Checking prerequisites:');
+    console.log('- HTTPS:', window.location.protocol === 'https:');
+    console.log('- Localhost:', window.location.hostname === 'localhost');
+    console.log('- ServiceWorker in navigator:', 'serviceWorker' in navigator, navigator.serviceWorker.getRegistrations());
+    console.log('- Current URL:', window.location.href);
+    
+    return 'serviceWorker' in navigator;
+}
