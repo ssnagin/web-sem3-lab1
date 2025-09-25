@@ -11,6 +11,9 @@
     "target": "esnext",
     // "moduleResolution": "node",
     "types": ["node"],
+
+    // "lib": ["ES2020", "DOM", "DOM.Iterable"] ???
+
     // For nodejs:
     // "lib": ["esnext"],
     // "types": ["node"],

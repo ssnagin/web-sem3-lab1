@@ -122,7 +122,7 @@ document.addEventListener("sn-form-response", (event : Event) => {
         // ADD ROW IN TABLE
 
         if (coordsTable == null) return;
-
+        
         coordsTable.addRow(
             "<tr><td>" + coordsTable.getCounter() + "</td><td>" + data.time + "</td><td>" + data.nanoseconds +  "</td><td>" + coordinate.x + "</td><td>" + coordinate.y + "</td><td>" + coordinate.r + "</td><td>" + coordinate.result + "</td></tr>"
         );
@@ -141,11 +141,11 @@ async function loadSavedPoints() {
             try {
                 const rValue = parseInt(point.r);
                 
-                console.log("POINTTTT", point, savedPoints);
+                // console.log("POINTTTT", point, savedPoints);loadSavedPoints(
                 
                 let plane : Plane2D = planes.plane2Dlist[rValue - 1]!;
                 
-                console.log("PLANEEEE", plane, rValue, planes);
+                // console.log("PLANEEEE", plane, rValue, planes);
                 plane.throwPoint(
                     new DOMColoredPoint(
                         point.result === 'hit' ? Plane2D.POINT_HIT_COLOR : Plane2D.POINT_MISS_COLOR,
