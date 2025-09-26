@@ -1,13 +1,17 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
+// WORKBOX
+
+const {GenerateSW} = require('workbox-webpack-plugin');
+const workboxConfig = require('./workbox-config');
+
 module.exports = {
     mode: "development",
     // mode: "production",
     entry: {
         script: path.resolve(__dirname, './public_html/src/ts_out/index.js'),
         style: path.resolve(__dirname, './public_html/src/sass/style.sass'),
-        // style: path.resolve(__dirname, './public_html/src/ts/index.ts'),
     },
     module: {
         rules: [
@@ -50,5 +54,8 @@ module.exports = {
             filename: '[name].bundle.css',
             chunkFilename: '[id].css',
         }),
+        new GenerateSW(
+            workboxConfig
+        )
   ],
 }

@@ -1,3 +1,5 @@
+import { IDBManager } from "../../modules/indexedDB/IDBManager";
+
 export interface StoredPoint {
     id?: number;
     result: string;
@@ -6,40 +8,28 @@ export interface StoredPoint {
     r: string;
     time: string;
     timestamp: number;
+    nanoseconds: number;
 }
 
-export default class PointsDB {
-    private dbName: string = 'PointsDB';
-    private version: number = 1;
-    private db: IDBDatabase | null = null;
+export default class PointsDB extends IDBManager {
+    protected dbName: string = 'PointsDB';
+    protected version: number = 1;
+    protected db: IDBDatabase | null = null;
 
     constructor(dbName?: string, version?: number) {
-        if (dbName) this.dbName = dbName;
-        if (version) this.version = version;
+        super(dbName, version);
     }
 
-    async init(): Promise<IDBDatabase> {
-        return new Promise((resolve, reject) => {
-            const request = indexedDB.open(this.dbName, this.version);
-
-            request.onerror = () => reject(request.error);
-            request.onsuccess = () => {
-                this.db = request.result;
-                resolve(this.db);
-            };
-
-            request.onupgradeneeded = (event: IDBVersionChangeEvent) => {
-                const db = (event.target as IDBOpenDBRequest).result;
-                if (!db.objectStoreNames.contains('points')) {
-                    const store = db.createObjectStore('points', { 
-                        keyPath: 'id', 
-                        autoIncrement: true 
-                    });
-                    store.createIndex('timestamp', 'timestamp', { unique: false });
-                    store.createIndex('result', 'result', { unique: false });
-                }
-            };
-        });
+    initSchema(event: IDBVersionChangeEvent): void{
+        const db = (event.target as IDBOpenDBRequest).result;
+        if (!db.objectStoreNames.contains('points')) {
+            const store = db.createObjectStore('points', { 
+                keyPath: 'id', 
+                autoIncrement: true 
+            });
+            store.createIndex('timestamp', 'timestamp', { unique: false });
+            store.createIndex('result', 'result', { unique: false });
+        }
     }
 
     async addPoint(point: Omit<StoredPoint, 'id' | 'timestamp'>): Promise<number> {

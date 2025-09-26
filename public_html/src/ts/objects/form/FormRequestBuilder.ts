@@ -1,4 +1,4 @@
-import RequestBuilder from "../../modules/requests/RequestBuilder";
+import RequestBuilder from "../../modules/requests/builders/RequestBuilder";
 import CustomForm from "./CustomForm";
 
 

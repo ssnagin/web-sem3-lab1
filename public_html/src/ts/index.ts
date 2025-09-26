@@ -1,21 +1,26 @@
 'use strict'
 
-import onCounterUpdate from "./modules/counter/counter";
 import DOMColoredPoint from "./modules/types/DOMColoredPoint";
 import CustomForm from "./objects/form/CustomForm";
 import { Coordinates, FormResponseData } from "./objects/form/FormResponseData";
-import PointsDB, { StoredPoint } from "./objects/indexedDB/PointsDB";
+import PointsDB, { StoredPoint } from "./objects/points/PointsDB";
 import Plane2D from "./objects/plane/Plane2D";
 import PlaneManager from "./objects/plane/PlaneManager";
 import CoordsTable from "./objects/table/CoordsTable";
+import { WorkboxManager } from "./modules/workbox/WorkboxManager";
+import { LabCounter } from "./objects/labCounter/LabCounter";
+import { RequestManager } from "./modules/requests/RequestManager";
 
-var counterValue: number = 1;
 
 var planes : PlaneManager = new PlaneManager();
-
 var coordsTable : CoordsTable | null = null;
 
+// IndexedDB
+
 var pointsDB: PointsDB | null = null;
+var requestManager : RequestManager | null = null;
+
+var workboxManager = WorkboxManager.getInstance();
 
 document.addEventListener("DOMContentLoaded", onDOMContentLoaded);
 
@@ -23,11 +28,9 @@ async function onDOMContentLoaded() {
 
     // COUNTER
 
-    const counter: HTMLElement | null = document.getElementById("counter");
-
-    counter?.addEventListener("click", (event) => {
-        counterValue = onCounterUpdate(event, counterValue);
-    });
+    const labCounter = new LabCounter(
+        document.getElementById("counter")!
+    );
 
     // FORM
 
@@ -52,6 +55,36 @@ async function onDOMContentLoaded() {
         planes.add(plane);
     }
 
+    // INDEXED DB RESET BUTTON
+
+    const idbResetButton = document.querySelector('#reset-db');
+
+    if (idbResetButton) {
+        idbResetButton!.addEventListener('click', async () => {
+            if (!pointsDB) {
+                alert('База данных не инициализирована');
+                return;
+            }
+
+            if (!confirm('Вы уверены, что хотите удалить все данные из базы?')) return;
+
+            try {
+                await pointsDB.clearAllPoints();
+
+                planes.plane2Dlist.forEach(plane => plane.clear());
+
+                if (coordsTable) coordsTable.clear();
+                alert('Данные успешно удалены из базы данных');
+            } catch (error) {
+                console.error('Error clearing database:', error);
+                alert('Ошибка при очистке базы данных');
+            }
+        });
+    }
+
+   // REQUEST MANAGER INIT
+
+    requestManager = new RequestManager();
 
     // POINTS DB INIT
 
@@ -66,11 +99,35 @@ async function onDOMContentLoaded() {
         console.error('Failed to initialize IndexedDB:', error);
     }
 
+    // WORKBOX MANAGER
+
+    await workboxManager.register('/service-worker.js');
+
+    // const pwaLogs = document.getElementById("pwa-logs");
+
+    // pwaLogs!.addEventListener("workbox-message", 
+    //     (message : Event) => {
+    //         const response : string = (message as CustomEvent).detail;
+    //         pwaLogs!.innerHTML += response + "\n";
+    //     }
+    // );
+
+    setTimeout(() => {
+
+        if (navigator.serviceWorker.controller) {
+            console.log(navigator.serviceWorker);
+            document.querySelector("#internet-status")!.innerHTML = "есть (оффлайн готов)";
+        } else {
+            console.log('no service worker is available');
+        }
+    }, 5500);
 }
 
 document.addEventListener("sn-form-response", (event : Event) => {
 
     const response : XMLHttpRequest = (event as CustomEvent).detail;
+
+    console.debug("SERVER FORM RESPONSE", response);
     
     const data : FormResponseData = JSON.parse(response.responseText);
 
@@ -90,7 +147,8 @@ document.addEventListener("sn-form-response", (event : Event) => {
                     x: coordinate.x,
                     y: coordinate.y,
                     r: coordinate.r,
-                    time: data.time
+                    time: data.time,
+                    nanoseconds: Number.parseInt(data.nanoseconds)
                 });
                 console.log('Point saved to database:', coordinate);
             } catch (error) {
@@ -119,9 +177,9 @@ document.addEventListener("sn-form-response", (event : Event) => {
         // ADD ROW IN TABLE
 
         if (coordsTable == null) return;
-
+        
         coordsTable.addRow(
-            "<tr><td>" + coordsTable.getCounter() + "</td><td>" + data.time + "</td><td>" + coordinate.x + "</td><td>" + coordinate.y + "</td><td>" + coordinate.r + "</td><td>" + coordinate.result + "</td></tr>"
+            "<tr><td>" + coordsTable.getCounter() + "</td><td>" + data.time + "</td><td>" + data.nanoseconds +  "</td><td>" + coordinate.x + "</td><td>" + coordinate.y + "</td><td>" + coordinate.r + "</td><td>" + coordinate.result + "</td></tr>"
         );
     });
 });
@@ -137,12 +195,8 @@ async function loadSavedPoints() {
         savedPoints.forEach((point: StoredPoint) => {
             try {
                 const rValue = parseInt(point.r);
-                
-                console.log("POINTTTT", point, savedPoints);
-                
                 let plane : Plane2D = planes.plane2Dlist[rValue - 1]!;
-                
-                console.log("PLANEEEE", plane, rValue, planes);
+
                 plane.throwPoint(
                     new DOMColoredPoint(
                         point.result === 'hit' ? Plane2D.POINT_HIT_COLOR : Plane2D.POINT_MISS_COLOR,
@@ -156,7 +210,7 @@ async function loadSavedPoints() {
             
             if (coordsTable) {
                 coordsTable.addRow(
-                    `<tr><td>${coordsTable.getCounter()}</td><td>${point.time}</td><td>${point.x}</td><td>${point.y}</td><td>${point.r}</td><td>${point.result}</td></tr>`
+                    `<tr><td>${coordsTable.getCounter()}</td><td>${point.time}</td><td>`+point.nanoseconds+`</td><td>${point.x}</td><td>${point.y}</td><td>${point.r}</td><td>${point.result}</td></tr>`
                 );
             }
         });
@@ -165,29 +219,12 @@ async function loadSavedPoints() {
     }
 }
 
+// INTERNET
 
-document.addEventListener("DOMContentLoaded", () => {
-    const resetButton = document.querySelector('#reset-db');
-    if (resetButton) {
-        resetButton.addEventListener('click', async () => {
-            if (!pointsDB) {
-                alert('База данных не инициализирована');
-                return;
-            }
+window.addEventListener("online", e => {
+    document.querySelector("#internet-status")!.innerHTML = "есть";
+});
 
-            if (confirm('Вы уверены, что хотите удалить все данные из базы?')) {
-                try {
-                    await pointsDB.clearAllPoints();
-
-                    planes.plane2Dlist.forEach(plane => plane.clear());
-
-                    if (coordsTable) coordsTable.clear();
-                    alert('Данные успешно удалены из базы данных');
-                } catch (error) {
-                    console.error('Error clearing database:', error);
-                    alert('Ошибка при очистке базы данных');
-                }
-            }
-        });
-    }
+window.addEventListener("offline", e => {
+    document.querySelector("#internet-status")!.innerHTML = "вы оффлайн!";
 });

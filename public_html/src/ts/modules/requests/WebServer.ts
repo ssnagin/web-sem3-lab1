@@ -30,31 +30,6 @@ class WebServer {
                 if (req.status >= 200 && req.status < 300) {
                     resolve(req);
                 } else reject(req);
-                // if (req.status >= 200 && req.status < 300) {
-                //     try {
-                //         const responseData = req.responseText ? JSON.parse(req.responseText) : {};
-                //         resolve({
-                //             status: req.status,
-                //             statusText: req.statusText,
-                //             data: responseData,
-                //             headers: req.getAllResponseHeaders()
-                //         });
-                //     } catch (error) {
-                //         resolve({
-                //             status: req.status,
-                //             statusText: req.statusText,
-                //             data: req.responseText,
-                //             headers: req.getAllResponseHeaders()
-                //         });
-                //     }
-                // } else {
-                //     const errorResponse: ErrorResponse = {
-                //         status: req.status,
-                //         statusText: req.statusText,
-                //         error: req.responseText || 'Unknown error'
-                //     };
-                //     reject(errorResponse);
-                // }
             };
             
             req.onerror = () => {

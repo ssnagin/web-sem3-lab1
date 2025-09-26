@@ -1,5 +1,6 @@
 import ElementController from "../../modules/ElementController";
 import FormValidationError from "../../modules/form/errors/FormValidationError";
+import { RequestManager } from "../../modules/requests/RequestManager";
 import { WebServer } from "../../modules/requests/WebServer";
 import { CustomFormFormatter } from "./CustomFormFormatter";
 import CustomFormValidator from "./CustomFromValidator";
@@ -99,21 +100,37 @@ class CustomForm implements ElementController<HTMLElement> {
 
         console.log("REQUEST DATA : ", requestData);
         
-        WebServer.send("/fcgi-bin/server.jar", requestData).then(data => {
+        RequestManager.getInstance().sendRequest("/fcgi-bin/server.jar", requestData);
+        // .then(data => {
+        //     const event : CustomEvent = new CustomEvent("sn-form-response", {
+        //         detail: data
+        //     });
 
-            const event : CustomEvent = new CustomEvent("sn-form-response", {
-                detail: data
-            });
+        //     try {
+        //         document.dispatchEvent(event);
+        //     } catch (e) {
+        //         console.error("COULD NOT THROW EVENT", event);
+        //     }
 
-            try {
-                document.dispatchEvent(event);
-            } catch (e) {
-                console.error("COULD NOT THROW EVENT", event);
-            }
+        // }).catch(error => {
+        //     console.log(error);
+        // });
 
-        }).catch(error => {
-            console.log(error);
-        });
+        // WebServer.send("/fcgi-bin/server.jar", requestData).then(data => {
+
+        //     const event : CustomEvent = new CustomEvent("sn-form-response", {
+        //         detail: data
+        //     });
+
+        //     try {
+        //         document.dispatchEvent(event);
+        //     } catch (e) {
+        //         console.error("COULD NOT THROW EVENT", event);
+        //     }
+
+        // }).catch(error => {
+        //     console.log(error);
+        // });
     }
 }
 

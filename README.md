@@ -57,4 +57,9 @@
 + Поддержать хренение точек в IndexedDB
 + Переписать весь код на TypeScript (https://roadmap.sh/typescript)
 - ? Сделать страницу offline-first (как получится)
-- Проверить helios.cs.ifmo.ru
++ Проверить helios.cs.ifmo.ru
+
+### Offline-first
+
+Основная статья https://habr.com/ru/companies/2gis/articles/345552/
+
