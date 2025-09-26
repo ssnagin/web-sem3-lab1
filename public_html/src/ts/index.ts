@@ -1,6 +1,5 @@
 'use strict'
 
-import onCounterUpdate from "./modules/counter/counter";
 import DOMColoredPoint from "./modules/types/DOMColoredPoint";
 import CustomForm from "./objects/form/CustomForm";
 import { Coordinates, FormResponseData } from "./objects/form/FormResponseData";
@@ -9,14 +8,14 @@ import Plane2D from "./objects/plane/Plane2D";
 import PlaneManager from "./objects/plane/PlaneManager";
 import CoordsTable from "./objects/table/CoordsTable";
 import { WorkboxManager } from "./modules/workbox/WorkboxManager";
+import { LabCounter } from "./objects/labCounter/LabCounter";
 
 
-var counterValue: number = 1;
 var planes : PlaneManager = new PlaneManager();
 var coordsTable : CoordsTable | null = null;
 var pointsDB: PointsDB | null = null;
 
-var workboxManager = WorkboxManager.getInstance();
+var workboxManager = WorkboxManager.getInstance(); // Перенес объявление из-за того, что нужно отслеживать ивент workbox-message
 
 document.addEventListener("DOMContentLoaded", onDOMContentLoaded);
 
@@ -24,11 +23,9 @@ async function onDOMContentLoaded() {
 
     // COUNTER
 
-    const counter: HTMLElement | null = document.getElementById("counter");
-
-    counter?.addEventListener("click", (event) => {
-        counterValue = onCounterUpdate(event, counterValue);
-    });
+    const labCounter = new LabCounter(
+        document.getElementById("counter")!
+    );
 
     // FORM
 
@@ -105,11 +102,9 @@ async function onDOMContentLoaded() {
         }
     );
 
-    await workboxManager.register();
+    await workboxManager.register('/service-worker.js');
 
     setTimeout(() => {
-
-    checkPrerequisites();
 
     if (navigator.serviceWorker.controller) {
         console.log(navigator.serviceWorker);
@@ -229,13 +224,3 @@ window.addEventListener("online", e => {
 window.addEventListener("offline", e => {
     document.querySelector("#internet-status")!.innerHTML = "вы оффлайн!";
 })
-
-function checkPrerequisites(): boolean {
-    console.log('🔍 Checking prerequisites:');
-    console.log('- HTTPS:', window.location.protocol === 'https:');
-    console.log('- Localhost:', window.location.hostname === 'localhost');
-    console.log('- ServiceWorker in navigator:', 'serviceWorker' in navigator, navigator.serviceWorker.getRegistrations());
-    console.log('- Current URL:', window.location.href);
-    
-    return 'serviceWorker' in navigator;
-}

@@ -81,13 +81,13 @@ define(['./workbox-8a7d6601'], (function (workbox) { 'use strict';
     "url": "/",
     "revision": "1.0.0"
   }, {
-    "url": "script.bundle.js",
-    "revision": "94ac04e860115dee0cd579f1fbb700a2"
+    "url": "/dist/script.bundle.js",
+    "revision": "088b7d55414ffccc2c9d0dc00cde9487"
   }, {
-    "url": "style.bundle.css",
+    "url": "/dist/style.bundle.css",
     "revision": "0933cd5866a6874b559157ec9ae14e79"
   }, {
-    "url": "style.bundle.js",
+    "url": "/dist/style.bundle.js",
     "revision": "0145ae0a03494f21a1bccad16509c842"
   }], {});
   workbox.registerRoute(new workbox.NavigationRoute(workbox.createHandlerBoundToURL("/"), {

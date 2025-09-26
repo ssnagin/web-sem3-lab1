@@ -1,7 +1,7 @@
 export
 
 class WorkboxManager {
-    private static instance : WorkboxManager = new WorkboxManager();    
+    private static instance : WorkboxManager;    
 
     static getInstance(): WorkboxManager {
         if (!WorkboxManager.instance) {
@@ -10,7 +10,7 @@ class WorkboxManager {
         return WorkboxManager.instance;
     }
 
-    async register(): Promise<void> {
+    async register(url : string): Promise<void> {
         
         if (!('serviceWorker' in navigator)) {
             this.throwMessage("Workbox is not available in this browser");
@@ -18,32 +18,13 @@ class WorkboxManager {
         }
         
         try {
-            const registration = await navigator.serviceWorker.register('/service-worker.js', {
+            const registration = await navigator.serviceWorker.register(url, {
                 scope: '/'
+            }).then(e => {
+                console.log("EEEEE", e);
             });
-
-            this.throwMessage("ServiceBox has been registered!");
             
-            // if (registration.installing) {
-            //     console.log('Service Worker устанавливается...');
-            // } else if (registration.waiting) {
-            //     console.log('Service Worker ожидает активации...');
-            // } else if (registration.active) {
-            //     console.log('Service Worker активен!');
-            // }
-                    
-            // if (registration.waiting) {
-            //     console.log('🔄 Service Worker ожидает - перезагружаем страницу...');
-            //     setTimeout(() => {
-            //         window.location.reload();
-            //     }, 500);
-            //     return;
-            // }
-
-            // if (registration.active) {
-            //     console.log('✅ Service Worker активен!');
-            // }
-
+            this.throwMessage("ServiceBox has been registered!");
 
         } catch (e) {
             this.throwMessage("Something went wrong while setting up Workbox");

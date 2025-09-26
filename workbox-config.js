@@ -1,9 +1,13 @@
 const path = require('path');
 
 module.exports = {
-    swDest: path.resolve(__dirname, './public_html/service-worker.js'),
+    swDest: path.resolve(__dirname, 'public_html/service-worker.js'),
     clientsClaim: true,
     skipWaiting: true,
+
+    modifyURLPrefix: {
+        '': '/dist/'
+    },
     
     runtimeCaching: 
     [
