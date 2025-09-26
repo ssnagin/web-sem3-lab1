@@ -3,19 +3,24 @@
 import DOMColoredPoint from "./modules/types/DOMColoredPoint";
 import CustomForm from "./objects/form/CustomForm";
 import { Coordinates, FormResponseData } from "./objects/form/FormResponseData";
-import PointsDB, { StoredPoint } from "./objects/indexedDB/PointsDB";
+import PointsDB, { StoredPoint } from "./objects/points/PointsDB";
 import Plane2D from "./objects/plane/Plane2D";
 import PlaneManager from "./objects/plane/PlaneManager";
 import CoordsTable from "./objects/table/CoordsTable";
 import { WorkboxManager } from "./modules/workbox/WorkboxManager";
 import { LabCounter } from "./objects/labCounter/LabCounter";
+import { RequestManager } from "./modules/requests/RequestManager";
 
 
 var planes : PlaneManager = new PlaneManager();
 var coordsTable : CoordsTable | null = null;
-var pointsDB: PointsDB | null = null;
 
-var workboxManager = WorkboxManager.getInstance(); // Перенес объявление из-за того, что нужно отслеживать ивент workbox-message
+// IndexedDB
+
+var pointsDB: PointsDB | null = null;
+var requestManager : RequestManager | null = null;
+
+var workboxManager = WorkboxManager.getInstance();
 
 document.addEventListener("DOMContentLoaded", onDOMContentLoaded);
 
@@ -77,6 +82,9 @@ async function onDOMContentLoaded() {
         });
     }
 
+   // REQUEST MANAGER INIT
+
+    requestManager = new RequestManager();
 
     // POINTS DB INIT
 
@@ -93,26 +101,26 @@ async function onDOMContentLoaded() {
 
     // WORKBOX MANAGER
 
-    const pwaLogs = document.getElementById("pwa-logs");
-
-    pwaLogs!.addEventListener("workbox-message", 
-        (message : Event) => {
-            const response : string = (message as CustomEvent).detail;
-            pwaLogs!.innerHTML += response + "\n";
-        }
-    );
-
     await workboxManager.register('/service-worker.js');
+
+    // const pwaLogs = document.getElementById("pwa-logs");
+
+    // pwaLogs!.addEventListener("workbox-message", 
+    //     (message : Event) => {
+    //         const response : string = (message as CustomEvent).detail;
+    //         pwaLogs!.innerHTML += response + "\n";
+    //     }
+    // );
 
     setTimeout(() => {
 
-    if (navigator.serviceWorker.controller) {
-        console.log(navigator.serviceWorker);
-        document.querySelector("#internet-status")!.innerHTML = "есть (оффлайн готов)";
-    } else {
-        console.log('no service worker is available');
-    }
-}, 5500);
+        if (navigator.serviceWorker.controller) {
+            console.log(navigator.serviceWorker);
+            document.querySelector("#internet-status")!.innerHTML = "есть (оффлайн готов)";
+        } else {
+            console.log('no service worker is available');
+        }
+    }, 5500);
 }
 
 document.addEventListener("sn-form-response", (event : Event) => {
@@ -187,12 +195,8 @@ async function loadSavedPoints() {
         savedPoints.forEach((point: StoredPoint) => {
             try {
                 const rValue = parseInt(point.r);
-                
-                // console.log("POINTTTT", point, savedPoints);loadSavedPoints(
-                
                 let plane : Plane2D = planes.plane2Dlist[rValue - 1]!;
-                
-                // console.log("PLANEEEE", plane, rValue, planes);
+
                 plane.throwPoint(
                     new DOMColoredPoint(
                         point.result === 'hit' ? Plane2D.POINT_HIT_COLOR : Plane2D.POINT_MISS_COLOR,
@@ -223,4 +227,4 @@ window.addEventListener("online", e => {
 
 window.addEventListener("offline", e => {
     document.querySelector("#internet-status")!.innerHTML = "вы оффлайн!";
-})
+});

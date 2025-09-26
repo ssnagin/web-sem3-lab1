@@ -1,7 +1,7 @@
 export
 
 class WorkboxManager {
-    private static instance : WorkboxManager;    
+    private static instance : WorkboxManager = new WorkboxManager();    
 
     static getInstance(): WorkboxManager {
         if (!WorkboxManager.instance) {
@@ -16,12 +16,10 @@ class WorkboxManager {
             this.throwMessage("Workbox is not available in this browser");
             return;
         }
-        
+
         try {
             const registration = await navigator.serviceWorker.register(url, {
                 scope: '/'
-            }).then(e => {
-                console.log("EEEEE", e);
             });
             
             this.throwMessage("ServiceBox has been registered!");
