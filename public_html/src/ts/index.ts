@@ -32,6 +32,8 @@ async function onDOMContentLoaded() {
         document.getElementById("counter")!
     );
 
+    
+
     // FORM
 
     const defaultForm : HTMLElement | null = document?.querySelector(".sn-default-form");

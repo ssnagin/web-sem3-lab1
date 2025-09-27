@@ -19,7 +19,7 @@ class RequestsDB extends IDBManager {
     protected dbName: string = 'RequestsDB';
     protected version: number = 1;
     protected db: IDBDatabase | null = null;
-
+    
     initSchema(event: IDBVersionChangeEvent): void {
         const db = (event.target as IDBOpenDBRequest).result;
         
@@ -32,8 +32,6 @@ class RequestsDB extends IDBManager {
             store.createIndex('attempts', 'attempts', { unique: false });
             store.createIndex('lastAttempt', 'lastAttempt', { unique: false });
         }
-
-        
     }
 
     async addRequest(request: Omit<StoredRequest, 'id' | 'timestamp' | 'attempts'>): Promise<number> {
